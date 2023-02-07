@@ -26,7 +26,7 @@ services:
             - "3000:3000"
     tunnel:
         image: cloudflare/cloudflared:latest
-        command: "tunnel --no-autoupdate run --token ${CLOUDFLARED_COMMAND}"
+        command: "tunnel --no-autoupdate run --token ${CLOUDFLARED_TOKEN}"
 
 volumes:
     data: {}
