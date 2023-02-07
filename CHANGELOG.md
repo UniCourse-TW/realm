@@ -1,5 +1,11 @@
 # unicourse-realm
 
+## 1.0.0-dev.2
+
+### Patch Changes
+
+-   6e94465: Build Env Update
+
 ## 1.0.0-dev.1
 
 ### Patch Changes
