@@ -6,10 +6,6 @@ services:
         restart: unless-stopped
         environment:
             NEO4J_PLUGINS: '["apoc"]'
-            apoc.export.file.enabled: 'true'
-            apoc.import.file.enabled: 'true'
-            apoc.import.file.use_neo4j_config: 'true'
-            NEO4J_dbms_security_procedures_unrestricted: 'apoc.*'
         env_file:
             - .env
         expose:
@@ -17,6 +13,8 @@ services:
             - "7687:7687"
         volumes:
             - data:/data
+            - ./neo4j/plugins:/plugins
+            - ./neo4j/conf:/conf
     realm:
         build:
             context: .
