@@ -19,6 +19,9 @@ jobs:
             - name: Checkout Repo
               uses: actions/checkout@v3
 
+            - name: Install Changesets
+              run: npm i -g @changesets/cli
+
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v2
 
