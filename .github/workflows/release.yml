@@ -37,6 +37,9 @@ jobs:
                   version: latest
                   run_install: true
 
+            - name: Create Empty .env
+              run: touch .env
+
             - name: Create Release Pull Request or Release
               id: changesets
               uses: changesets/action@v1
