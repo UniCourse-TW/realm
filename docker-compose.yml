@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+    db:
+        image: neo4j:latest
+        restart: unless-stopped
+        environment:
+            NEO4JLABS_PLUGINS: '["apoc"]'
+        env_file:
+            - .env
+        expose:
+            - "7474:7474"
+            - "7687:7687"
+        volumes:
+            - data:/data
+    realm:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: production
+        image: jacoblincool/unicourse-realm:latest
+        restart: unless-stopped
+        env_file:
+            - .env
+        expose:
+            - "3000:3000"
+    tunnel:
+        image: cloudflare/cloudflared:latest
+        command: "tunnel --no-autoupdate run --token ${CLOUDFLARED_COMMAND}"
+
+volumes:
+    data: {}

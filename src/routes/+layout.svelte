@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { bg, expanded } from "$lib/store";
+	import type { ClientUser } from "$lib/types";
+	import { fade } from "svelte/transition";
+	import Nav from "./Nav.svelte";
+	import PageTransition from "./PageTransition.svelte";
+	import "./styles.css";
+
+	export let data: {
+		user: ClientUser | null;
+	};
+</script>
+
+<svelte:head>
+	<title>UniCourse Realm</title>
+</svelte:head>
+
+<Nav user={data.user} />
+
+<div class="absolute m-0 h-full w-full overflow-hidden p-0">
+	{#key $bg}
+		{#if $bg}
+			<div
+				in:fade={{ duration: 200 }}
+				out:fade={{ duration: 200 }}
+				class="absolute inset-0 bg-cover bg-center"
+				style="background-image: url({$bg})"
+			/>
+		{/if}
+	{/key}
+	<div
+		class="m-auto h-full w-full overflow-hidden overflow-y-auto p-4"
+		class:max-w-5xl={!$expanded}
+	>
+		<PageTransition>
+			<slot />
+		</PageTransition>
+	</div>
+</div>

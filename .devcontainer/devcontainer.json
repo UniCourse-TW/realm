@@ -1,0 +1,22 @@
+{
+	"name": "workspace",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "workspace",
+	"workspaceFolder": "/workspace",
+	"settings": {},
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"GitHub.copilot",
+		"GitHub.copilot-labs",
+		"svelte.svelte-vscode",
+		"bradlc.vscode-tailwindcss",
+		"antfu.iconify"
+	],
+	"onCreateCommand": "pnpm config set -g store-dir /workspace/node_modules/.pnpm-store",
+	"postStartCommand": "pnpm i",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+		"ghcr.io/dhoeric/features/act:1": {}
+	}
+}

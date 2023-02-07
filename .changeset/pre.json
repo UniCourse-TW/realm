@@ -1,0 +1,8 @@
+{
+	"mode": "pre",
+	"tag": "dev",
+	"initialVersions": {
+		"unicourse-realm": "0.0.0"
+	},
+	"changesets": []
+}

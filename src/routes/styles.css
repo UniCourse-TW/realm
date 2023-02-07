@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.bg-uni {
+		@apply bg-gradient-to-r from-blue-300 via-indigo-200 to-fuchsia-200;
+	}
+}
+
+* {
+	@apply relative font-sans text-base-content;
+}
+
+*::-webkit-scrollbar {
+	@apply hidden;
+}
+
+html,
+body,
+main {
+	@apply bg-uni absolute m-0 h-full w-full overflow-hidden p-0;
+}
