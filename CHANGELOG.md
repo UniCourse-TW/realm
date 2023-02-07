@@ -1,5 +1,11 @@
 # unicourse-realm
 
+## 1.0.0-dev.1
+
+### Patch Changes
+
+-   ebe7641: Upgrade Deps
+
 ## 1.0.0-dev.0
 
 ### Major Changes
