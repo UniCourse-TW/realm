@@ -1,6 +1,6 @@
 {
 	"name": "unicourse-realm",
-	"version": "1.0.0-dev.0",
+	"version": "1.0.0-dev.1",
 	"type": "module",
 	"files": [
 		"dist"
