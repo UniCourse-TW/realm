@@ -46,6 +46,6 @@ jobs:
               with:
                   title: Release
                   commit: bump versions
-                  publish: docker buildx bake --set '*.platform=linux/arm64/v8,linux/amd64' --push
+                  publish: pnpm build:docker
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

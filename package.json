@@ -16,7 +16,8 @@
 		"test:unit": "vitest",
 		"lint": "prettier --ignore-path .gitignore --check **/*.{ts,js,json,yaml,yml,svelte,html,css} && eslint .",
 		"format": "prettier --ignore-path .gitignore --write **/*.{ts,js,json,yaml,yml,svelte,html,css}",
-		"cypher": "node scripts/run-cypher.js"
+		"cypher": "node scripts/run-cypher.js",
+		"build:docker": "docker buildx bake --set '*.platform=linux/arm64/v8,linux/amd64' --push"
 	},
 	"devDependencies": {
 		"@changesets/changelog-github": "^0.4.8",
