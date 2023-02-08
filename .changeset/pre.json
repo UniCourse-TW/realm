@@ -4,5 +4,10 @@
 	"initialVersions": {
 		"unicourse-realm": "0.0.0"
 	},
-	"changesets": ["chilly-poets-impress", "few-paws-drum", "many-teachers-doubt"]
+	"changesets": [
+		"chilly-poets-impress",
+		"few-paws-drum",
+		"many-teachers-doubt",
+		"silent-cobras-cheer"
+	]
 }

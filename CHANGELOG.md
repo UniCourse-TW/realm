@@ -1,5 +1,11 @@
 # unicourse-realm
 
+## 1.0.0-dev.4
+
+### Patch Changes
+
+-   dcb5205: Add Scripts
+
 ## 1.0.0-dev.3
 
 ### Patch Changes
