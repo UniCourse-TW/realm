@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
 	import { images } from "$lib/images";
 	import { bg } from "$lib/store";
 	import { onMount, onDestroy } from "svelte";
@@ -19,6 +20,8 @@
 	onDestroy(() => {
 		$bg = original_bg;
 	});
+
+	let composing = false;
 </script>
 
 <svelte:head>
@@ -32,7 +35,9 @@
 	>
 		<div class="form-control w-full">
 			<label class="label" for="find-courses">
-				<span class="label-text text-xl text-white drop-shadow-lg">Find Courses</span>
+				<span class="label-text text-xl text-white drop-shadow-lg"
+					>What are you looking for?</span
+				>
 			</label>
 			<div class="input-group">
 				<input
@@ -42,6 +47,13 @@
 					bind:value={search}
 					class="input-bordered input w-full opacity-80 transition-all focus:opacity-100"
 					tabindex="0"
+					on:keydown={(e) => {
+						if (e.key === "Enter" && search && !composing) {
+							goto(`/course/search/${search}`);
+						}
+					}}
+					on:compositionstart={() => (composing = true)}
+					on:compositionend={() => setTimeout(() => (composing = false), 30)}
 				/>
 				<a class="btn-square btn" href="/course/search/{search}" tabindex="0">
 					<Icon icon="mdi:magnify" class="h-6 w-6" />
