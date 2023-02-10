@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { images } from "$lib/images";
 	import { bg, expanded } from "$lib/store";
 	import type { ClientUser } from "$lib/types";
+	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
 	import Nav from "./Nav.svelte";
 	import PageTransition from "./PageTransition.svelte";
@@ -9,6 +11,12 @@
 	export let data: {
 		user: ClientUser | null;
 	};
+
+	onMount(() => {
+		images.add("/images/scenery-a.png");
+		images.add("/images/scenery-b.png");
+		images.add("/images/scenery-c.png");
+	});
 </script>
 
 <svelte:head>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { images } from "$lib/images";
 	import { bg } from "$lib/store";
 	import { onMount, onDestroy } from "svelte";
 	import Icon from "@iconify/svelte";
@@ -7,8 +8,12 @@
 
 	let search = "";
 
-	onMount(() => {
-		$bg = "/images/scenery-b.png";
+	onMount(async () => {
+		const url = await images.wait("/images/scenery-b.png");
+		console.log({ url });
+		if (url) {
+			$bg = url;
+		}
 	});
 
 	onDestroy(() => {
@@ -19,7 +24,6 @@
 <svelte:head>
 	<title>Search Courses</title>
 	<meta name="description" content="Find your interested courses on UniCourse" />
-	<link rel="prefetch" href="/images/scenery-b.png" />
 </svelte:head>
 
 <section class="flex h-full w-full items-center justify-center">
