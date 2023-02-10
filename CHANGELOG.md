@@ -1,5 +1,11 @@
 # unicourse-realm
 
+## 1.0.0-dev.5
+
+### Minor Changes
+
+-   fa78803: Course search api and interface
+
 ## 1.0.0-dev.4
 
 ### Patch Changes
