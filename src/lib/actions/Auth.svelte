@@ -18,6 +18,11 @@
 	}
 
 	async function login() {
+		if (username === "" || password === "") {
+			err = "Please fill in username and password";
+			return;
+		}
+
 		running = true;
 		err = "";
 		try {
@@ -50,6 +55,11 @@
 	}
 
 	async function register() {
+		if (username === "" || password === "" || email === "" || invitation === "") {
+			err = "Please fill in all fields";
+			return;
+		}
+
 		running = true;
 		err = "";
 		try {
