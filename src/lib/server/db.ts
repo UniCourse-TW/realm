@@ -27,10 +27,30 @@ export const ready = (async () => {
 	await db.run(constraint("UNIQUE_PROVIDER_SLUG", "Provider", "slug"));
 	await db.run(constraint("UNIQUE_INVITATION_CODE", "Invitation", "code"));
 	await db.run(
-		"CREATE FULLTEXT INDEX COURSE_FTS IF NOT EXISTS FOR (n:Course|Instructor|Program|Provider) ON EACH [n.name, n.description]",
+		`
+		CREATE FULLTEXT INDEX COURSE_FTS IF NOT EXISTS
+		FOR (n:Course|Instructor|Program|Provider)
+		ON EACH [n.name, n.description, n.code]
+		OPTIONS {
+			indexConfig: {
+				\`fulltext.analyzer\`: 'cjk',
+				\`fulltext.eventually_consistent\`: true
+			}
+		}
+		`,
 	);
 	await db.run(
-		"CREATE FULLTEXT INDEX FORUM_FTS IF NOT EXISTS FOR (n:Post|Tag) ON EACH [n.name, n.content, n.description]",
+		`
+		CREATE FULLTEXT INDEX FORUM_FTS IF NOT EXISTS
+		FOR (n:Post|PostTag)
+		ON EACH [n.name, n.content, n.description]
+		OPTIONS {
+			indexConfig: {
+				\`fulltext.analyzer\`: 'cjk',
+				\`fulltext.eventually_consistent\`: true
+			}
+		}
+		`,
 	);
 
 	console.timeEnd("Database Ready");
