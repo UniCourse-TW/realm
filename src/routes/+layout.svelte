@@ -37,8 +37,9 @@
 		{/if}
 	{/key}
 	<div
-		class="m-auto h-full w-full overflow-hidden overflow-y-auto p-4"
+		class="m-auto h-full w-full overflow-hidden overflow-y-auto"
 		class:max-w-5xl={!$expanded}
+		class:p-4={!$expanded}
 	>
 		<PageTransition>
 			<slot />
