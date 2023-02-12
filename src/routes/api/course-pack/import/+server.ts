@@ -3,6 +3,7 @@
  * Since the course pack can be very large, we use SSE to send the progress
  * of the import.
  */
+import { Role } from "$lib/constants";
 import { db, ready } from "$lib/server/db";
 import { merge } from "$lib/server/db-utils";
 import sse, { SSECore } from "$lib/server/event";
@@ -14,7 +15,7 @@ import type { RequestHandler } from "@sveltejs/kit";
 import { json } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-	if (!locals.crystal?.roles.includes("CoursePacker")) {
+	if (!locals.crystal?.roles.includes(Role.CoursePacker)) {
 		return json({ error: en.auth.permission_denied }, { status: 403 });
 	}
 

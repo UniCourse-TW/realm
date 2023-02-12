@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Role } from "$lib/constants";
 	import type { ClientUser } from "$lib/types";
 	import ImportCoursePack from "./ImportCoursePack.svelte";
 	import UserInfo from "./UserInfo.svelte";
@@ -13,14 +14,14 @@
 	<title>Me</title>
 </svelte:head>
 
-<section class="pt-12">
-	{#if !data.user.roles.includes("Verified")}
+<section class="py-12">
+	{#if !data.user.roles.includes(Role.Verified)}
 		<VerifyEmail email={data.user.email} />
 	{/if}
 
 	<UserInfo user={data.user} />
 
-	{#if data.user.roles.includes("CoursePacker")}
+	{#if data.user.roles.includes(Role.CoursePacker)}
 		<ImportCoursePack />
 	{/if}
 </section>

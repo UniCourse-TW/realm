@@ -1,13 +1,13 @@
+import { Role } from "$lib/constants";
 import { db, ready } from "$lib/server/db";
 import { en } from "$lib/strings";
-import type { Node } from "neo4j-driver";
 import { convert } from "neo4j-ogm";
 import { z } from "zod";
 import type { RequestHandler } from "@sveltejs/kit";
 import { json } from "@sveltejs/kit";
 
 export const GET: RequestHandler = async ({ url, locals }) => {
-	if (!locals.crystal?.roles.includes("Verified")) {
+	if (!locals.crystal?.roles.includes(Role.Verified)) {
 		return json({ error: en.auth.permission_denied }, { status: 403 });
 	}
 
@@ -55,8 +55,8 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
 	const data = records.map((record) => {
 		const node = record.get("node");
-		const to: Record<string, any>[] = record.get("to");
-		const from: Record<string, any>[] = record.get("from");
+		const to = record.get("to") as Record<string, any>[];
+		const from = record.get("from") as Record<string, any>[];
 		const score = record.get("score");
 
 		return {
