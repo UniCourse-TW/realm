@@ -46,6 +46,8 @@
 	"me": {
 		"confirming-email": "驗證電子郵件來完成註冊",
 		"import-course-pack": "匯入 Course Pack",
+		"invitation-claimed": "獲得新邀請碼！",
+		"invitations": "我的邀請碼",
 		"logged-in-as": "以 <b>{user}</b> 的身份登入。",
 		"management": "管理",
 		"mint-invitation": "建立邀請碼",
