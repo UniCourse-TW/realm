@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t } from "svelte-i18n";
 	import { fly } from "svelte/transition";
 	import Icon from "@iconify/svelte";
 
@@ -10,7 +11,7 @@
 	<div>
 		<span>
 			<Icon icon="mdi:alert-circle-outline" class="mb-0.5 mr-1 hidden text-3xl md:inline" />
-			Verify your account by confirming email
+			<span>{$t("me.confirming-email")}</span>
 			{#if is_gmail}
 				<a
 					href="https://mail.google.com/mail/u/0/#search/unicourse"

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t } from "svelte-i18n";
 	import { fly, fade } from "svelte/transition";
 
 	export let data: { stats: { courses: bigint; posts: bigint; users: bigint } };
@@ -30,7 +31,7 @@
 		>
 			<div class="stat">
 				<div in:fade={{ delay: start + 1400, duration: 300 }} class="stat-title">
-					Total Courses
+					{$t("home.total-courses")}
 				</div>
 				<div in:fly={{ y: -5, delay: start + 1400, duration: 300 }} class="stat-value">
 					{commas(data.stats.courses)}
@@ -41,24 +42,24 @@
 			</div>
 			<div class="stat">
 				<div in:fade={{ delay: start + 1500, duration: 300 }} class="stat-title">
-					Total Posts
+					{$t("home.total-posts")}
 				</div>
 				<div in:fly={{ y: -5, delay: start + 1500, duration: 300 }} class="stat-value">
 					{commas(data.stats.posts)}
 				</div>
 				<div in:fade={{ delay: start + 1500, duration: 300 }} class="stat-desc">
-					Featured: How to use UniCourse?
+					{$t("home.featured", { values: { title: "How to use UniCourse?" } })}
 				</div>
 			</div>
 			<div class="stat">
 				<div in:fade={{ delay: start + 1600, duration: 300 }} class="stat-title">
-					Active Users
+					{$t("home.active-users")}
 				</div>
 				<div in:fly={{ y: -5, delay: start + 1600, duration: 300 }} class="stat-value">
 					{commas(data.stats.users)}
 				</div>
 				<div in:fade={{ delay: start + 1600, duration: 300 }} class="stat-desc">
-					From over 32 schools
+					{$t("home.from-over-n-schools", { values: { n: 32 } })}
 				</div>
 			</div>
 		</div>

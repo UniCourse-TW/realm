@@ -3,6 +3,7 @@
 	import { images } from "$lib/images";
 	import { bg } from "$lib/store";
 	import { onMount, onDestroy } from "svelte";
+	import { t } from "svelte-i18n";
 	import Icon from "@iconify/svelte";
 
 	const original_bg = $bg;
@@ -25,7 +26,7 @@
 </script>
 
 <svelte:head>
-	<title>Search Courses</title>
+	<title>{$t("course.search-courses")}</title>
 	<meta name="description" content="Find your interested courses on UniCourse" />
 </svelte:head>
 
@@ -36,14 +37,14 @@
 		<div class="form-control w-full">
 			<label class="label" for="find-courses">
 				<span class="label-text text-xl text-white drop-shadow-lg"
-					>What are you looking for?</span
+					>{$t("course.what-are-you-looking-for")}</span
 				>
 			</label>
 			<div class="input-group">
 				<input
 					id="find-courses"
 					type="text"
-					placeholder="Ex. Computer Programming"
+					placeholder={$t("course.ex-computer-programming")}
 					bind:value={search}
 					class="input-bordered input w-full opacity-80 transition-all focus:opacity-100"
 					tabindex="0"

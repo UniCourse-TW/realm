@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Role } from "$lib/constants";
 	import type { ClientUser } from "$lib/types";
+	import { t } from "svelte-i18n";
 	import ImportCoursePack from "./ImportCoursePack.svelte";
 	import Management from "./Management.svelte";
 	import UserInfo from "./UserInfo.svelte";
@@ -12,7 +13,7 @@
 </script>
 
 <svelte:head>
-	<title>Me</title>
+	<title>{$t("nav.me")}</title>
 </svelte:head>
 
 <section class="py-12">

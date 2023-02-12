@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from "$app/navigation";
+	import { t } from "svelte-i18n";
 	import { hash } from "unicourse";
 
 	let mode: "login" | "register" = "login";
@@ -19,7 +20,7 @@
 
 	async function login() {
 		if (username === "" || password === "") {
-			err = "Please fill in username and password";
+			err = $t("auth.please-fill-in-username-and-password");
 			return;
 		}
 
@@ -47,7 +48,7 @@
 			if (error instanceof Error) {
 				err = error.message;
 			} else {
-				err = "Unknown Error";
+				err = $t("unknown-error");
 			}
 		} finally {
 			running = false;
@@ -56,7 +57,7 @@
 
 	async function register() {
 		if (username === "" || password === "" || email === "" || invitation === "") {
-			err = "Please fill in all fields";
+			err = $t("please-fill-in-all-fields");
 			return;
 		}
 
@@ -64,7 +65,7 @@
 		err = "";
 		try {
 			if (password !== password_confirm) {
-				throw new Error("Passwords do not match");
+				throw new Error($t("auth.passwords-do-not-match"));
 			}
 
 			const res = await fetch("/api/auth/register", {
@@ -90,7 +91,7 @@
 			if (error instanceof Error) {
 				err = error.message;
 			} else {
-				err = "Unknown Error";
+				err = $t("unknown-error");
 			}
 		} finally {
 			running = false;
@@ -100,25 +101,25 @@
 
 <div class="form-control w-full">
 	<span class="label">
-		<span class="label-text">Username</span>
+		<span class="label-text">{$t("auth.username")}</span>
 	</span>
 	<input
 		type="text"
 		bind:value={username}
-		placeholder="Your username"
+		placeholder={$t("auth.your-username")}
 		class="input-bordered input w-full"
 		disabled={running}
 		tabindex="0"
 	/>
 
 	<span class="label">
-		<span class="label-text">Password</span>
+		<span class="label-text">{$t("auth.password")}</span>
 	</span>
 
 	<input
 		type="password"
 		bind:value={password}
-		placeholder="Your password"
+		placeholder={$t("auth.your-password")}
 		class="input-bordered input w-full"
 		disabled={running}
 		tabindex="0"
@@ -126,39 +127,39 @@
 
 	{#if mode === "register"}
 		<span class="label">
-			<span class="label-text">Confirm Password</span>
+			<span class="label-text">{$t("auth.confirm-password")}</span>
 		</span>
 
 		<input
 			type="password"
 			bind:value={password_confirm}
-			placeholder="Confirm your password"
+			placeholder={$t("auth.confirm-your-password")}
 			class="input-bordered input w-full"
 			disabled={running}
 			tabindex="0"
 		/>
 
 		<span class="label">
-			<span class="label-text">Email</span>
+			<span class="label-text">{$t("auth.email")}</span>
 		</span>
 
 		<input
 			type="email"
 			bind:value={email}
-			placeholder="Your email"
+			placeholder={$t("auth.your-email")}
 			class="input-bordered input w-full"
 			disabled={running}
 			tabindex="0"
 		/>
 
 		<span class="label">
-			<span class="label-text">Invitation Code</span>
+			<span class="label-text">{$t("auth.invitation-code")}</span>
 		</span>
 
 		<input
 			type="text"
 			bind:value={invitation}
-			placeholder="Your invitation code"
+			placeholder={$t("auth.your-invitation-code")}
 			class="input-bordered input w-full"
 			disabled={running}
 			tabindex="0"
@@ -175,7 +176,7 @@
 			on:click={mode === "login" ? login : register}
 			disabled={running}
 		>
-			{mode === "login" ? "Login" : "Register"}
+			{mode === "login" ? $t("auth.login") : $t("auth.register")}
 		</button>
 
 		<button
@@ -183,7 +184,7 @@
 			on:click={() => (mode = mode === "login" ? "register" : "login")}
 			disabled={running}
 		>
-			{mode === "login" ? "Register" : "Login"}
+			{mode === "login" ? $t("auth.register") : $t("auth.login")}
 		</button>
 	</div>
 
@@ -191,10 +192,10 @@
 
 	<div class="flex flex-row justify-end text-right">
 		<span class="text-sm text-opacity-70">
-			By logging in or registering, you agree to our <br />
-			<a href="/terms" class="link">Terms of Service</a>
-			and
-			<a href="/privacy" class="link">Privacy Policy</a>
+			{$t("auth.agreement-notice")} <br />
+			<a href="/terms" class="link">{$t("tos")}</a>
+			{$t("and")}
+			<a href="/privacy" class="link">{$t("privacy-policy")}</a>
 		</span>
 	</div>
 </div>

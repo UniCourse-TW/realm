@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Event } from "$lib/event";
+	import { t } from "svelte-i18n";
 	import { fly } from "svelte/transition";
 
 	let import_progress = -1;
@@ -51,14 +52,14 @@
 >
 	<div class="flex flex-col">
 		<div>
-			<h1 class="text-2xl">Import Course Pack</h1>
-			<p class="py-4">Upload a course pack to import it into the system.</p>
+			<h1 class="text-2xl">{$t("me.import-course-pack")}</h1>
+			<p class="py-4">{$t("me.upload-a-course-pack-to-import-it-into-the-system")}</p>
 		</div>
 
 		<div>
 			<div class="form-control w-full">
 				<label class="label" for="select-course-pack">
-					<span class="label-text">Pick a Course Pack</span>
+					<span class="label-text">{$t("me.pick-a-course-pack")}</span>
 				</label>
 				<input
 					id="select-course-pack"
@@ -78,7 +79,7 @@
 						disabled={import_progress >= 0}
 						on:click={import_course_pack}
 					>
-						Import
+						{$t("import")}
 					</button>
 				{/if}
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { _ as t } from "svelte-i18n";
+	import { t } from "svelte-i18n";
 
 	export let user: { username: string } | null;
 </script>

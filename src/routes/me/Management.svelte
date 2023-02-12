@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { append } from "$lib/notification";
+	import { t } from "svelte-i18n";
 	import { fly } from "svelte/transition";
 
 	let invitation_count = 1;
@@ -20,7 +21,7 @@
 
 	async function copy(text: string) {
 		await navigator.clipboard.writeText(text);
-		append("Copied to clipboard", "success");
+		append($t("copied-to-clipboard"), "success");
 	}
 </script>
 
@@ -31,11 +32,11 @@
 	<div class="flex flex-col lg:flex-row">
 		<div class="flex flex-col gap-4">
 			<div>
-				<h1 class="text-2xl">Management</h1>
+				<h1 class="text-2xl">{$t("me.management")}</h1>
 			</div>
 
 			<div>
-				<h2 class="mb-2 font-bold">Invitations</h2>
+				<h2 class="mb-2 font-bold">{$t("invitations")}</h2>
 				<div class="form-control">
 					<div class="input-group">
 						<input
@@ -46,7 +47,9 @@
 							bind:value={invitation_count}
 							class="input-bordered input"
 						/>
-						<button class="btn-outline btn" on:click={mint}> Mint Invitation </button>
+						<button class="btn-outline btn" on:click={mint}>
+							{$t("me.mint-invitation")}
+						</button>
 					</div>
 				</div>
 
@@ -55,7 +58,6 @@
 						<div class="input-group">
 							<input
 								type="text"
-								placeholder="Invitation Code"
 								bind:value={invitation}
 								class="input-bordered input input-sm w-64 font-mono"
 								disabled
@@ -64,7 +66,7 @@
 								class="btn-outline btn-sm btn"
 								on:click={() => copy(invitation)}
 							>
-								Copy
+								{$t("copy")}
 							</button>
 						</div>
 					</div>

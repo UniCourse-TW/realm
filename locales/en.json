@@ -1,8 +1,69 @@
 {
+	"and": "and",
+	"auth": {
+		"agreement-notice": "By logging in or registering, you agree to our ",
+		"confirm-password": "Confirm Password",
+		"confirm-your-password": "Confirm your password",
+		"email": "Email",
+		"invitation-code": "Invitation Code",
+		"login": "Login",
+		"password": "Password",
+		"passwords-do-not-match": "Passwords do not match",
+		"please-fill-in-username-and-password": "Please fill in username and password",
+		"register": "Register",
+		"username": "Username",
+		"your-email": "Your email",
+		"your-invitation-code": "Your invitation code",
+		"your-password": "Your password",
+		"your-username": "Your username"
+	},
+	"copied-to-clipboard": "Copied to clipboard",
+	"copy": "Copy",
+	"course": {
+		"course-type": "Course Type",
+		"courses": "Courses",
+		"ex-computer-programming": "Ex. Computer Programming",
+		"instructors": "Instructors",
+		"name": "Name",
+		"programs": "Programs",
+		"providers": "Providers",
+		"relevance": "Relevance",
+		"search-courses": "Search Courses",
+		"search-for": "Search for",
+		"sort-by": "Sort by",
+		"what-are-you-looking-for": "What are you looking for?"
+	},
+	"home": {
+		"active-users": "Active Users",
+		"featured": "Featured: {title}",
+		"from-over-n-schools": "From over {n} schools",
+		"total-courses": "Total Courses",
+		"total-posts": "Total Posts"
+	},
+	"import": "Import",
+	"invitations": "Invitations",
+	"logout": "Logout",
+	"me": {
+		"confirming-email": "Verify your account by confirming email",
+		"import-course-pack": "Import Course Pack",
+		"logged-in-as": "You are logged in as <b>{user}</b>.",
+		"management": "Management",
+		"mint-invitation": "Mint Invitation",
+		"nice-to-see-you": "Nice to see you, {user}!",
+		"pick-a-course-pack": "Pick a Course Pack",
+		"roles": "Roles: ",
+		"upload-a-course-pack-to-import-it-into-the-system": "Upload a course pack to import it into the system."
+	},
 	"nav": {
 		"course": "Course",
 		"forum": "Forum",
 		"login": "Login",
 		"me": "Me"
-	}
+	},
+	"please-fill-in-all-fields": "Please fill in all fields",
+	"privacy-policy": "Privacy Policy",
+	"search": "Search",
+	"tos": "Terms of Service",
+	"unknown-error": "Unknown Error",
+	"wip": "We are still working on this feature. Please check back later."
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
+	import { t } from "svelte-i18n";
 
 	let search = $page.params.query;
 	const search_for = {
@@ -36,7 +37,7 @@
 	>
 		<div class="form-control w-full">
 			<label class="label" for="search">
-				<span class="label-text font-bold">What are you looking for?</span>
+				<span class="label-text font-bold">{$t("course.what-are-you-looking-for")}</span>
 			</label>
 			<input
 				id="search"
@@ -56,10 +57,10 @@
 
 		<div class="divider" />
 
-		<p class="text-sm font-bold">Search for</p>
+		<p class="text-sm font-bold">{$t("course.search-for")}</p>
 		<div class="form-control">
 			<label class="label cursor-pointer">
-				<span class="label-text">Courses</span>
+				<span class="label-text">{$t("course.courses")}</span>
 				<input
 					type="checkbox"
 					bind:checked={search_for.course}
@@ -67,7 +68,7 @@
 				/>
 			</label>
 			<label class="label cursor-pointer">
-				<span class="label-text">Instructors</span>
+				<span class="label-text">{$t("course.instructors")}</span>
 				<input
 					type="checkbox"
 					bind:checked={search_for.instructor}
@@ -75,7 +76,7 @@
 				/>
 			</label>
 			<label class="label cursor-pointer">
-				<span class="label-text">Providers</span>
+				<span class="label-text">{$t("course.providers")}</span>
 				<input
 					type="checkbox"
 					bind:checked={search_for.provider}
@@ -83,7 +84,7 @@
 				/>
 			</label>
 			<label class="label cursor-pointer">
-				<span class="label-text">Programs</span>
+				<span class="label-text">{$t("course.programs")}</span>
 				<input
 					type="checkbox"
 					bind:checked={search_for.program}
@@ -96,19 +97,19 @@
 
 		<div class="form-control w-full">
 			<label class="label" for="sort">
-				<span class="label-text font-bold">Sort by</span>
+				<span class="label-text font-bold">{$t("course.sort-by")}</span>
 			</label>
 			<select id="sort" class="select-bordered select" bind:value={sort}>
-				<option value="relevance">Relevance</option>
-				<option value="name">Name</option>
-				<option value="type">Course Type</option>
+				<option value="relevance">{$t("course.relevance")}</option>
+				<option value="name">{$t("course.name")}</option>
+				<option value="type">{$t("course.course-type")}</option>
 			</select>
 		</div>
 
 		<div class="divider" />
 
 		<button class="btn-primary btn w-full" on:click={search_courses} disabled={!search}>
-			Search
+			{$t("search")}
 		</button>
 	</div>
 </div>
