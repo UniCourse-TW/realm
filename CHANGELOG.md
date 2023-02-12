@@ -1,5 +1,15 @@
 # unicourse-realm
 
+## 1.0.0-dev.6
+
+### Minor Changes
+
+-   3f69999: I18n Navigation
+-   c523d3e: Show invitation list
+-   3f69999: Management UI of Creating Invitations (Moderator)
+-   5e38f2d: Course details and instructor, provider, program related courses
+-   3f69999: Support zh-TW in all main UI
+
 ## 1.0.0-dev.5
 
 ### Minor Changes
