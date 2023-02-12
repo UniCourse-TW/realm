@@ -46,7 +46,7 @@ async function import_pack(pack: CoursePack, evt: SSECore<{ progress: number }>)
 		const instructors = await merge(
 			"name",
 			["Instructor"],
-			pack.teachers.map(({ name }) => ({ name })),
+			pack.teachers.map(({ name }) => ({ name, slug: slugify(name) })),
 		);
 		const instructor_map = new Map(pack.teachers.map((t, i) => [t.id, instructors[i][0]]));
 		p(5);
@@ -54,7 +54,7 @@ async function import_pack(pack: CoursePack, evt: SSECore<{ progress: number }>)
 		const programs = await merge(
 			"name",
 			["Program"],
-			pack.programs.map(({ name }) => ({ name })),
+			pack.programs.map(({ name }) => ({ name, slug: slugify(name) })),
 		);
 		const program_map = new Map(pack.programs.map(({ id }, i) => [id, programs[i][0]]));
 		p(10);
