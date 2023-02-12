@@ -62,7 +62,7 @@
 		"tslib": "^2.5.0",
 		"tsup": "^6.5.0",
 		"typescript": "^4.9.5",
-		"unicourse": "1.0.0-alpha.14",
+		"unicourse": "1.0.0-alpha.15",
 		"vite": "^4.1.1",
 		"vitest": "^0.28.4",
 		"zod": "^3.20.2",

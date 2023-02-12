@@ -47,7 +47,7 @@ specifiers:
   tslib: ^2.5.0
   tsup: ^6.5.0
   typescript: ^4.9.5
-  unicourse: 1.0.0-alpha.14
+  unicourse: 1.0.0-alpha.15
   vite: ^4.1.1
   vitest: ^0.28.4
   zod: ^3.20.2
@@ -102,7 +102,7 @@ devDependencies:
   tslib: 2.5.0
   tsup: 6.5.0_uujdqti2krmttzhqvubwnsmcci
   typescript: 4.9.5
-  unicourse: 1.0.0-alpha.14
+  unicourse: 1.0.0-alpha.15
   vite: 4.1.1
   vitest: 0.28.4
   zod: 3.20.2
@@ -2015,6 +2015,12 @@ packages:
       zod: 3.20.2
     transitivePeerDependencies:
       - prisma
+    dev: true
+
+  /course-pack/1.0.0-alpha.15:
+    resolution: {integrity: sha512-Xq6/g09BGPtA8B49jM/6ElTVe5f6fbAGYks2OGzhexhtnHEJVdTa2h93dTjviamrnTaKmokeZWzVf/qOyHqvSg==}
+    dependencies:
+      zod: 3.20.2
     dev: true
 
   /cross-fetch/3.1.5:
@@ -5528,18 +5534,17 @@ packages:
       busboy: 1.6.0
     dev: true
 
-  /unicourse/1.0.0-alpha.14:
-    resolution: {integrity: sha512-A3Z8NVe/bGappwfd3G7gg1sB5rRHXwtyoSksDzXgD1hERo/9cW4wvfMvJDQ1klTHlg5Kd5bto0GM1moRdq3Llg==}
+  /unicourse/1.0.0-alpha.15:
+    resolution: {integrity: sha512-Ryr/NqVTMZ3Iwk/wBKi6qKDIUApLNtrzIIcRy1/SUHKXOkWbbpaZowzU4mpM/ibZ1yXpfz5Ts7BMeAlPdjceGg==}
     dependencies:
       '@unicourse-tw/token': 1.0.0-alpha.14
-      course-pack: 1.0.0-alpha.14
+      course-pack: 1.0.0-alpha.15
       cross-fetch: 3.1.5
       debug: 4.3.4
       jwt-decode: 3.1.2
       zod: 3.20.2
     transitivePeerDependencies:
       - encoding
-      - prisma
       - supports-color
     dev: true
 
