@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { page } from "$app/stores";
 	import { expanded } from "$lib/store";
 	import pangu from "pangu";
 	import { onMount, onDestroy } from "svelte";
+	import { t } from "svelte-i18n";
 	import SearchPanel from "./SearchPanel.svelte";
 
 	const original_expanded = $expanded;
@@ -24,10 +26,18 @@
 	onDestroy(() => {
 		$expanded = original_expanded;
 	});
+
+	function link(type: string, slug: string): string {
+		if (type.toLowerCase() === "course") {
+			return `/course/${slug}`;
+		} else {
+			return `/course/${type.toLowerCase()}/${slug}`;
+		}
+	}
 </script>
 
 <svelte:head>
-	<title>Search Courses</title>
+	<title>{$t("course.search-courses")}: {$page.params.query}</title>
 </svelte:head>
 
 <section class="flex h-full w-full p-0">
@@ -39,7 +49,7 @@
 				{#each data.result as result}
 					<a
 						class="card mx-4 mt-6 mb-2 bg-base-100 shadow-sm transition-all hover:shadow-lg"
-						href="/course/{result.props.slug}"
+						href={link(result.type, result.props.slug)}
 					>
 						<div class="card-body">
 							<h2 class="card-title">
@@ -68,7 +78,7 @@
 											<h3 class="font-bold">{key}</h3>
 											{#each items as item}
 												<a
-													href="/course/{item.slug}"
+													href={link(item.LABELS[0], item.slug)}
 													class="btn-ghost btn-sm btn"
 												>
 													{item.name}
@@ -81,7 +91,7 @@
 											<h3 class="font-bold">{key}</h3>
 											{#each items as item}
 												<a
-													href="/course/{item.slug}"
+													href={link(item.LABELS[0], item.slug)}
 													class="btn-ghost btn-sm btn"
 												>
 													{item.name}

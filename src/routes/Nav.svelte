@@ -12,7 +12,7 @@
 	/>
 	<div class="flex items-center gap-2 pl-2">
 		<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/">
-			UniCourse<sapn class="ml-1 hidden sm:inline">Realm</sapn>
+			UniCourse<span class="ml-1 hidden sm:inline">Realm</span>
 		</a>
 	</div>
 	<div class="flex items-center gap-2 pr-2">

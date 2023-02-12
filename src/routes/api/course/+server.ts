@@ -6,6 +6,9 @@ import { z } from "zod";
 import type { RequestHandler } from "@sveltejs/kit";
 import { json } from "@sveltejs/kit";
 
+const CACHE_TTL = 1000 * 60;
+const cache = new Map<string, [timer: NodeJS.Timer, data: unknown]>();
+
 export const GET: RequestHandler = async ({ url, locals }) => {
 	if (!locals.crystal?.roles.includes(Role.Verified)) {
 		return json({ error: en.auth.permission_denied }, { status: 403 });
@@ -32,6 +35,12 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 	const offset = (page - 1) * 20;
 
 	console.log({ query, offset });
+
+	const cache_key = `${query}${offset}${types}${order[0]}${dir}`;
+	const cached = cache.get(cache_key);
+	if (cached) {
+		return json({ data: cached[1] });
+	}
 
 	await ready;
 	console.time(`query ${query}, offset ${offset}`);
@@ -80,6 +89,8 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 			score,
 		};
 	});
+
+	cache.set(cache_key, [setTimeout(() => cache.delete(cache_key), CACHE_TTL), data]);
 
 	return json({ data });
 };

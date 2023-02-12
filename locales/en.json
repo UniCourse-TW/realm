@@ -46,6 +46,8 @@
 	"me": {
 		"confirming-email": "Verify your account by confirming email",
 		"import-course-pack": "Import Course Pack",
+		"invitation-claimed": "New Invitation Claimed!",
+		"invitations": "My Invitations",
 		"logged-in-as": "You are logged in as <b>{user}</b>.",
 		"management": "Management",
 		"mint-invitation": "Mint Invitation",

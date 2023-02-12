@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { t } from "svelte-i18n";
 	import { fly, fade } from "svelte/transition";
+	import type { PageData } from "./$types";
 
-	export let data: { stats: { courses: bigint; posts: bigint; users: bigint } };
+	export let data: PageData;
+	console.log("page", { data });
 
 	function commas(x: bigint | number) {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -10,11 +12,6 @@
 
 	const start = 300;
 </script>
-
-<svelte:head>
-	<title>UniCourse Realm</title>
-	<meta name="description" content="UniCourse" />
-</svelte:head>
 
 <section class="h-full pt-12">
 	<div class="flex h-full w-full flex-col justify-center">

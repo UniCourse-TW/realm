@@ -1,17 +1,15 @@
 <script lang="ts">
 	import { images } from "$lib/images";
 	import { bg, expanded } from "$lib/store";
-	import type { ClientUser } from "$lib/types";
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
+	import type { LayoutData } from "./$types";
 	import Nav from "./Nav.svelte";
 	import Notifications from "./Notifications.svelte";
 	import PageTransition from "./PageTransition.svelte";
 	import "./styles.css";
 
-	export let data: {
-		user: ClientUser | null;
-	};
+	export let data: LayoutData;
 
 	onMount(() => {
 		images.add("/images/scenery-a.png");
@@ -21,7 +19,8 @@
 </script>
 
 <svelte:head>
-	<title>UniCourse Realm</title>
+	<title>{data.head?.title || "UniCourse Realm"}</title>
+	<meta name="description" content={data.head?.description || "UniCourse Realm"} />
 </svelte:head>
 
 <Nav user={data.user} />
@@ -40,7 +39,8 @@
 	<div
 		class="m-auto h-full w-full overflow-hidden overflow-y-auto"
 		class:max-w-5xl={!$expanded}
-		class:p-4={!$expanded}
+		class:p-2={!$expanded}
+		class:md:p-4={!$expanded}
 	>
 		<PageTransition>
 			<slot />
