@@ -10,7 +10,6 @@
 	import "./styles.css";
 
 	export let data: LayoutData;
-	console.log("layout", { data });
 
 	onMount(() => {
 		images.add("/images/scenery-a.png");
