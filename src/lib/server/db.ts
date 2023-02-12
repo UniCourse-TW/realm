@@ -7,9 +7,9 @@ import { constraint } from "./db-utils";
 const driver = neo4j.driver(NEO4J_URI, neo4j.auth.basic(NEO4J_USER, NEO4J_PASSWORD));
 
 export const db = building
-	? {
+	? ({
 			run: () => ({ records: [new Map<string, any>()] }),
-	  }
+	  } as unknown as DB)
 	: new DB(driver);
 
 export const ready = (async () => {

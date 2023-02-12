@@ -1,5 +1,6 @@
 import { JWT_SECRET } from "$lib/server/config";
 import * as JWT from "jsonwebtoken";
+import { locale } from "svelte-i18n";
 import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -18,6 +19,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 			event.cookies.delete("crystal");
 			return new Response("Unauthorized", { status: 401 });
 		}
+	}
+
+	const lang = event.request.headers.get("accept-language")?.split(",")[0];
+	if (lang) {
+		locale.set(lang);
 	}
 
 	return resolve(event);

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { t } from "svelte-i18n";
+
 	export let user: { username: string } | null;
 </script>
 
@@ -14,13 +16,20 @@
 		</a>
 	</div>
 	<div class="flex items-center gap-2 pr-2">
-		<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/course/search">Course</a
+		<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/course/search"
+			>{$t("nav.course")}</a
 		>
-		<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/forum">Forum</a>
+		<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/forum"
+			>{$t("nav.forum")}</a
+		>
 		{#if !user}
-			<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/auth">Login</a>
+			<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/auth"
+				>{$t("nav.login")}</a
+			>
 		{:else}
-			<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/me">Me</a>
+			<a class="btn-ghost btn-sm btn normal-case group-hover:h-12" href="/me"
+				>{$t("nav.me")}</a
+			>
 		{/if}
 	</div>
 </header>

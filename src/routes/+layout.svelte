@@ -5,6 +5,7 @@
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
 	import Nav from "./Nav.svelte";
+	import Notifications from "./Notifications.svelte";
 	import PageTransition from "./PageTransition.svelte";
 	import "./styles.css";
 
@@ -46,3 +47,5 @@
 		</PageTransition>
 	</div>
 </div>
+
+<Notifications />
