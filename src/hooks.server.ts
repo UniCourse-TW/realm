@@ -1,7 +1,10 @@
 import { JWT_SECRET } from "$lib/server/config";
+import debug from "debug";
 import * as JWT from "jsonwebtoken";
 import { locale } from "svelte-i18n";
 import type { Handle } from "@sveltejs/kit";
+
+const log = debug("server");
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const crystal = event.cookies.get("crystal");
@@ -16,7 +19,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			};
 			event.locals.crystal = payload;
 		} catch {
-			event.cookies.delete("crystal");
+			event.cookies.delete("crystal", { path: "/" });
 			return new Response("Unauthorized", { status: 401 });
 		}
 	}
@@ -26,7 +29,16 @@ export const handle: Handle = async ({ event, resolve }) => {
 		locale.set(lang);
 	}
 
-	return resolve(event);
+	const process_start = Date.now();
+	const result = await resolve(event);
+	const process_end = Date.now();
+
+	log(
+		`${event.request.method} ${event.request.url} ${result.status} ${
+			process_end - process_start
+		}ms`,
+	);
+	return result;
 };
 
 process.on("SIGINT", () => {
