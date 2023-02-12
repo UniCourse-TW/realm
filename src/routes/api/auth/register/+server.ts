@@ -55,7 +55,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		const { records } = await db.run(
 			`
         MATCH (invitation:Invitation { code: $invitation })-[:OWNED_BY]->(owner:User)
-        WHERE NOT (invitation)-[:USED_BY]->(:User)
+        WHERE NOT (invitation)-[:USED_BY]->(:User) AND NOT invitation.revoked
         WITH invitation, owner
 		CREATE (user:User $user)
         MERGE (invitation)-[:USED_BY { at: datetime() }]->(user)

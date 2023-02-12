@@ -15,8 +15,8 @@ export const GET: RequestHandler = async ({ locals }) => {
 	await ready;
 
 	await db.run(
-		`MATCH (x:User {username: "admin"}) MERGE (x)<-[:OWNED_BY]-(invitation:Invitation { code: $code })`,
-		{ code },
+		`MATCH (x:User {username: $username}) MERGE (x)<-[:OWNED_BY]-(invitation:Invitation { code: $code, created: datetime(), revoked: false })`,
+		{ username: locals.crystal.username, code },
 	);
 
 	return json({ data: { code } });
