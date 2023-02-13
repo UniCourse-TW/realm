@@ -24,7 +24,9 @@
 
 	<UserInfo {user} />
 
-	<Invitations {invitations} />
+	{#if user.roles.includes(Role.Verified)}
+		<Invitations {invitations} />
+	{/if}
 
 	{#if user.roles.includes(Role.CoursePacker)}
 		<ImportCoursePack />

@@ -44,9 +44,12 @@
 	"invitations": "邀請碼",
 	"logout": "登出",
 	"me": {
+		"claim-invitation": "領取邀請碼",
 		"confirming-email": "驗證電子郵件來完成註冊",
 		"import-course-pack": "匯入 Course Pack",
 		"invitation-claimed": "獲得新邀請碼！",
+		"invitation-created-at": "於 {time} 建立",
+		"invitation-used-by": "{user} 已於 {time} 使用",
 		"invitations": "我的邀請碼",
 		"logged-in-as": "以 <b>{user}</b> 的身份登入。",
 		"management": "管理",
@@ -65,6 +68,9 @@
 	"please-fill-in-all-fields": "請填寫所有欄位",
 	"privacy-policy": "隱私權政策",
 	"search": "搜尋",
+	"time": {
+		"duration": "{h} 小時 {m} 分 {s} 秒"
+	},
 	"tos": "服務條款",
 	"unknown-error": "未知錯誤",
 	"wip": "我們正在努力開發此功能，請持續關注！"

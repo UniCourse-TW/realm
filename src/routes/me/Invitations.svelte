@@ -14,26 +14,32 @@
 		append($t("copied-to-clipboard"), "success");
 	}
 
+	let claiming = false;
 	async function claim() {
-		const res = await fetch("/api/auth/invitation/claim");
-		if (res.ok) {
-			const { data } = await res.json();
-			if (data.code) {
-				invitations.push({
-					invitation: { code: data.code, created: Date.now(), revoked: false },
-				});
-				append($t("me.invitation-claimed"), "success");
-			} else {
-				append("Next: " + second_to_time(data.next / 1000), "info");
+		claiming = true;
+		try {
+			const res = await fetch("/api/auth/invitation/claim");
+			if (res.ok) {
+				const { data } = await res.json();
+				if (data.code) {
+					invitations.push({
+						invitation: { code: data.code, created: Date.now(), revoked: false },
+					});
+					append($t("me.invitation-claimed"), "success");
+				} else {
+					append("Next: " + second_to_time(data.next / 1000), "info");
+				}
 			}
+		} finally {
+			claiming = false;
 		}
 	}
 
-	function second_to_time(s: number) {
-		const hours = Math.floor(s / 3600);
-		const minutes = Math.floor((s % 3600) / 60);
-		const seconds = Math.floor(s % 60);
-		return `${hours}h ${minutes}m ${seconds}s`;
+	function second_to_time(seconds: number) {
+		const h = Math.floor(seconds / 3600);
+		const m = Math.floor((seconds % 3600) / 60);
+		const s = Math.floor(seconds % 60);
+		return $t("time.duration", { values: { h, m, s } });
 	}
 </script>
 
@@ -49,30 +55,51 @@
 
 			<div>
 				{#each invitations as invitation}
-					<div class="form-control my-2">
-						<div class="input-group" class:opacity-50={invitation.invitation.revoked}>
-							<input
-								type="text"
-								bind:value={invitation.invitation.code}
-								title="created at {new Date(
-									invitation.invitation.created,
-								).toLocaleString()}"
-								class="input-bordered input input-sm w-64 font-mono"
-								disabled
-							/>
-							<button
-								class="btn-outline btn-sm btn"
-								on:click={() => copy(invitation.invitation.code)}
-								disabled={invitation.invitation.revoked}
+					<div>
+						<div class="form-control my-2">
+							<div
+								class="input-group"
+								class:opacity-50={invitation.invitation.revoked}
 							>
-								{$t("copy")}
-							</button>
+								<input
+									type="text"
+									bind:value={invitation.invitation.code}
+									title={$t("me.invitation-created-at", {
+										values: {
+											time: new Date(
+												invitation.invitation.created,
+											).toLocaleString(),
+										},
+									})}
+									class="input-bordered input input-sm w-64 font-mono"
+									disabled
+								/>
+								<button
+									class="btn-outline btn-sm btn"
+									on:click={() => copy(invitation.invitation.code)}
+									disabled={invitation.invitation.revoked}
+								>
+									{$t("copy")}
+								</button>
+							</div>
 						</div>
+						{#if invitation.user}
+							<span
+								>{$t("me.invitation-used-by", {
+									values: {
+										user: invitation.user,
+										time: new Date(invitation.at || 0),
+									},
+								})}</span
+							>
+						{/if}
 					</div>
 				{/each}
 			</div>
 
-			<button class="btn-outline btn" on:click={claim}> Claim </button>
+			<button class="btn-outline btn" on:click={claim} disabled={claiming}>
+				{$t("me.claim-invitation")}
+			</button>
 		</div>
 	</div>
 </div>
