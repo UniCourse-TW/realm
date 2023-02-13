@@ -79,7 +79,7 @@ function val(key: string): Promise<string> {
 	return new Promise((resolve) => {
 		const unsubscribe = t.subscribe((x) => {
 			resolve(x(key));
-			unsubscribe();
+			setImmediate(() => unsubscribe());
 		});
 	});
 }

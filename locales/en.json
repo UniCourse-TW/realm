@@ -44,9 +44,12 @@
 	"invitations": "Invitations",
 	"logout": "Logout",
 	"me": {
+		"claim-invitation": "Claim Invitation",
 		"confirming-email": "Verify your account by confirming email",
 		"import-course-pack": "Import Course Pack",
 		"invitation-claimed": "New Invitation Claimed!",
+		"invitation-created-at": "created at {time}",
+		"invitation-used-by": "Used by {user} at {time}",
 		"invitations": "My Invitations",
 		"logged-in-as": "You are logged in as <b>{user}</b>.",
 		"management": "Management",
@@ -65,6 +68,9 @@
 	"please-fill-in-all-fields": "Please fill in all fields",
 	"privacy-policy": "Privacy Policy",
 	"search": "Search",
+	"time": {
+		"duration": "{h}h {m}m {s}s"
+	},
 	"tos": "Terms of Service",
 	"unknown-error": "Unknown Error",
 	"wip": "We are still working on this feature. Please check back later."
