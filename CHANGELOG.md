@@ -1,5 +1,15 @@
 # unicourse-realm
 
+## 1.0.0-dev.7
+
+### Minor Changes
+
+-   72a5fe1: Invitation Panel
+
+### Patch Changes
+
+-   9f7e239: Course description formats
+
 ## 1.0.0-dev.6
 
 ### Minor Changes
