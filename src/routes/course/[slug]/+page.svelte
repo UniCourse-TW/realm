@@ -43,8 +43,8 @@
 
 		<div class="divider" />
 
-		<div class="prose max-w-4xl">
-			<p>{data.props.description}</p>
+		<div>
+			<p class="prose max-w-4xl whitespace-pre-line">{data.props.description}</p>
 		</div>
 	</div>
 </section>

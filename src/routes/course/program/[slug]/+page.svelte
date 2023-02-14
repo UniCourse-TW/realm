@@ -24,8 +24,8 @@
 				{course.name} <sup class="opacity-70">{course.code}</sup>
 			</h1>
 
-			<div class="prose max-w-4xl">
-				{course.description}
+			<div class="max-h-60 overflow-y-auto">
+				<p class="prose max-w-4xl whitespace-pre-line">{course.description}</p>
 			</div>
 		</a>
 	{/each}

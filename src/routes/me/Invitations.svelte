@@ -22,9 +22,10 @@
 			if (res.ok) {
 				const { data } = await res.json();
 				if (data.code) {
-					invitations.push({
+					invitations.unshift({
 						invitation: { code: data.code, created: Date.now(), revoked: false },
 					});
+					invitations = invitations;
 					append($t("me.invitation-claimed"), "success");
 				} else {
 					append("Next: " + second_to_time(data.next / 1000), "info");
@@ -59,7 +60,8 @@
 						<div class="form-control my-2">
 							<div
 								class="input-group"
-								class:opacity-50={invitation.invitation.revoked}
+								class:opacity-50={invitation.invitation.revoked ||
+									!!invitation.user}
 							>
 								<input
 									type="text"
@@ -77,21 +79,21 @@
 								<button
 									class="btn-outline btn-sm btn"
 									on:click={() => copy(invitation.invitation.code)}
-									disabled={invitation.invitation.revoked}
+									disabled={invitation.invitation.revoked || !!invitation.user}
 								>
 									{$t("copy")}
 								</button>
 							</div>
 						</div>
 						{#if invitation.user}
-							<span
-								>{$t("me.invitation-used-by", {
+							<span class="px-4 text-sm italic">
+								{$t("me.invitation-used-by", {
 									values: {
 										user: invitation.user,
-										time: new Date(invitation.at || 0),
+										time: new Date(invitation.at || 0).toLocaleString(),
 									},
-								})}</span
-							>
+								})}
+							</span>
 						{/if}
 					</div>
 				{/each}
