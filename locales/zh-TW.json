@@ -31,7 +31,11 @@
 		"search-courses": "課程搜尋",
 		"search-for": "包含",
 		"sort-by": "排序方式",
-		"what-are-you-looking-for": "你想找什麼呢？"
+		"what-course-are-you-looking-for": "你在找什麼課程？"
+	},
+	"forum": {
+		"ex-great-course-recommendations": "例如：好課推薦",
+		"what-article-are-you-looking-for": "你在找什麼文章？"
 	},
 	"home": {
 		"active-users": "活躍使用者",
