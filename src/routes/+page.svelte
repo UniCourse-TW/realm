@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
 	import { Role } from "$lib/constants";
+	import type { RoleType } from "$lib/constants";
 	import { t } from "svelte-i18n";
 	import { fly, fade } from "svelte/transition";
 	import type { PageData } from "./$types";
@@ -14,13 +15,14 @@
 
 	const start = 300;
 
-	const roleOptions = [Role.Verified, Role.CoursePacker, Role.Moderator];
+	const roleOptions: RoleType[] = [Role.Verified, Role.CoursePacker, Role.Moderator];
 	let username = "";
-	let roles: typeof roleOptions = [];
+	let roles: RoleType[] = [];
 	$: isComplete = username.length > 0 && roles.length > 0;
 	function getStarted() {
 		if (isComplete) {
-			goto(`/auth?username=${username}&roles=${roles.join(",")}`);
+			const code = import.meta.env.VITE_FIRST_INVITATION_CODE;
+			goto(`/auth?username=${username}&roles=${roles.join(",")}&code=${code}`);
 		}
 	}
 </script>

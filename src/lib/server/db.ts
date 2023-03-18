@@ -1,7 +1,7 @@
 import { building } from "$app/environment";
 import neo4j from "neo4j-driver";
 import { DB } from "neo4j-ogm";
-import { NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD } from "./config";
+import { NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, FIRST_INVITATION_CODE } from "./config";
 import { constraint } from "./db-utils";
 
 const driver = neo4j.driver(NEO4J_URI, neo4j.auth.basic(NEO4J_USER, NEO4J_PASSWORD));
@@ -51,6 +51,18 @@ export const ready = (async () => {
 			}
 		}
 		`,
+	);
+
+	await db.run(
+		`
+		MATCH (x:User {username: "admin"})
+		MERGE (x)<-[:OWNED_BY]-(invitation:Invitation {
+			code: $invitation_code
+		})
+		ON CREATE SET invitation.created = datetime(),
+					  invitation.revoked = false
+		`,
+		{ invitation_code: FIRST_INVITATION_CODE },
 	);
 
 	console.timeEnd("Database Ready");
