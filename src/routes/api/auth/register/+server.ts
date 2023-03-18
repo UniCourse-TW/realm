@@ -14,7 +14,7 @@ import { v } from "@unicourse-tw/validation";
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	await ready;
 
-	let { username, password, email, invitation } = await request.json();
+	let { username, password, email, invitation, roles } = await request.json();
 
 	try {
 		username = v.username.parse(username);
@@ -40,11 +40,39 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		return json({ error: en.auth.invitation_invalid }, { status: 400 });
 	}
 
+	if (roles) {
+		try {
+			roles = z
+				.array(
+					z.union([
+						z.literal("Verified"),
+						z.literal("CoursePacker"),
+						z.literal("Moderator"),
+					]),
+				)
+				.parse(roles);
+			roles.unshift("User");
+		} catch {
+			return json({ error: en.auth.wrong_roles }, { status: 400 });
+		}
+		try {
+			const { records } = await db.run(
+				`MATCH (u:User) RETURN count(u) > 1 AS hasMoreThanOneUser`,
+			);
+			const hasMoreThanOneUser = records[0].get("hasMoreThanOneUser");
+			if (hasMoreThanOneUser) throw new Error();
+		} catch {
+			return json({ error: en.auth.register_with_roles }, { status: 403 });
+		}
+	} else {
+		roles = ["User"];
+	}
+
 	const payload = {
 		id: createId(),
 		username: username,
 		expires: Date.now() + 1000 * 60 * 60,
-		roles: ["User"],
+		roles,
 	};
 
 	const jwt = JWT.sign(payload, JWT_SECRET, {
@@ -62,6 +90,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
         WITH user, owner
         CREATE (user)-[:FOLLOWS]->(owner)
         CREATE (token:Token $token)-[:OWNED_BY]->(user)
+		SET ${roles.map((x: string) => `user:${x}`).join(", ")}
         RETURN user, owner.username as referrer
         `,
 			{
