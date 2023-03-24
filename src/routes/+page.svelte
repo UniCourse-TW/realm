@@ -21,8 +21,7 @@
 	$: isComplete = username.length > 0 && roles.length > 0;
 	function getStarted() {
 		if (isComplete) {
-			const code = import.meta.env.VITE_FIRST_INVITATION_CODE;
-			goto(`/auth?username=${username}&roles=${roles.join(",")}&code=${code}`);
+			goto(`/auth?username=${username}&roles=${roles.join(",")}&code=${data.code}`);
 		}
 	}
 </script>

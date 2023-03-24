@@ -27,7 +27,7 @@ A POC for Hybrid UniCourse Server.
 
 1. Open a terminal in VSCode.
 2. Run `pnpm dev` to start the server in development mode.
-3. Go to `http://localhost:3000/`, you should see there are 0 courses, 0 posts, and 1 user.
+3. Go to `http://localhost:5173/`, you should see there are 0 courses, 0 posts, and 1 user.
 4. You should also see a panel with title "Welcome aboard", this panel only appears for your first account (specifically, if these only 1 user in DB).
 5. Get started with entering usernames and roles, then you would be navigated to register page to complete the account information.
 6. Voilà, your first account is ready!
