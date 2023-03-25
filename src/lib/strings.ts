@@ -6,6 +6,8 @@ export const en = {
 		invitation_invalid: "Invitation is invalid",
 		wrong_password: "Wrong password",
 		wrong_invitation: "Wrong invitation code",
+		wrong_roles: "Wrong roles",
+		register_with_roles: "You can't register with roles",
 		not_logged_in: "Not logged in",
 		permission_denied: "Permission denied",
 	},

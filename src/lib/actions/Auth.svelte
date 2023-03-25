@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { invalidateAll } from "$app/navigation";
+	import type { RoleType } from "$lib/constants";
+	import { onMount } from "svelte";
 	import { t } from "svelte-i18n";
 	import { hash } from "unicourse";
 
@@ -12,11 +14,20 @@
 	let password_confirm = "";
 	let email = "";
 	let invitation = "";
+	let roles: RoleType[] = [];
 
 	$: {
 		console.log("switched to mode: " + mode);
 		err = "";
 	}
+
+	onMount(() => {
+		const params = new URLSearchParams(location.search);
+		if (params.has("username")) username = params.get("username")!;
+		if (params.has("roles")) roles = params.get("roles")!.split(",") as RoleType[];
+		if (params.has("code")) invitation = params.get("code")!;
+		if (roles || invitation) mode = "register";
+	});
 
 	async function login() {
 		if (username === "" || password === "") {
@@ -78,6 +89,7 @@
 					password: await hash(password),
 					email,
 					invitation,
+					roles,
 				}),
 			});
 
