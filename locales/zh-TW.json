@@ -34,7 +34,16 @@
 		"what-course-are-you-looking-for": "你在找什麼課程？"
 	},
 	"forum": {
+		"announcement": "公告",
+		"article": "文章",
 		"ex-great-course-recommendations": "例如：好課推薦",
+		"hot": "熱門",
+		"newest": "最新",
+		"question": "問題",
+		"relevance": "相關性",
+		"search-articles": "論壇搜尋",
+		"sort-by": "排序方式",
+		"type": "種類",
 		"what-article-are-you-looking-for": "你在找什麼文章？"
 	},
 	"home": {

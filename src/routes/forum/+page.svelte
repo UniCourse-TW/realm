@@ -24,7 +24,7 @@
 </script>
 
 <svelte:head>
-	<title>{$t("nav.forum")}</title>
+	<title>{$t("forum.search-articles")}</title>
 	<meta
 		name="description"
 		content="Join UniCourse to share your experiences with other students"
@@ -36,14 +36,14 @@
 		class="w-full max-w-2xl rounded-lg bg-white/20 p-4 shadow backdrop-blur-sm transition-all focus-within:shadow-lg hover:shadow-lg md:p-8"
 	>
 		<div class="form-control w-full">
-			<label class="label" for="find-courses">
+			<label class="label" for="find-articles">
 				<span class="label-text text-xl text-white drop-shadow-lg"
 					>{$t("forum.what-article-are-you-looking-for")}</span
 				>
 			</label>
 			<div class="input-group">
 				<input
-					id="find-courses"
+					id="find-articles"
 					type="text"
 					placeholder={$t("forum.ex-great-course-recommendations")}
 					bind:value={search}

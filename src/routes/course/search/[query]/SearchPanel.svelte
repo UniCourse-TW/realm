@@ -37,7 +37,9 @@
 	>
 		<div class="form-control w-full">
 			<label class="label" for="search">
-				<span class="label-text font-bold">{$t("course.what-are-you-looking-for")}</span>
+				<span class="label-text font-bold"
+					>{$t("course.what-course-are-you-looking-for")}</span
+				>
 			</label>
 			<input
 				id="search"
