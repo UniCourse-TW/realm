@@ -14,7 +14,7 @@
 	let password_confirm = "";
 	let email = "";
 	let invitation = "";
-	let roles: RoleType[] = [];
+	let roles: RoleType[] | null = null;
 
 	$: {
 		console.log("switched to mode: " + mode);
