@@ -19,5 +19,8 @@ export const en = {
 	data: {
 		invalid: "Invalid data",
 	},
+	profile: {
+		invalid_data: "Invalid data",
+	},
 	unimplemented: "Unimplemented",
 } as const;
