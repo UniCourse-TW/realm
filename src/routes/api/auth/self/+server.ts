@@ -1,9 +1,8 @@
 import { db, ready } from "$lib/server/db";
+import { get_profile } from "$lib/server/profile";
 import { CLOUDFLARE_R2_BUCKET, get_client } from "$lib/server/r2";
 import { ok } from "$lib/server/respond";
 import { en } from "$lib/strings";
-import { convert } from "neo4j-ogm";
-import { Readable, Duplex } from "stream";
 import { z } from "zod";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { createId } from "@paralleldrive/cuid2";
@@ -14,31 +13,8 @@ export const GET: RequestHandler = async ({ locals }) => {
 	if (!locals.crystal) {
 		return json({ error: en.auth.not_logged_in }, { status: 400 });
 	}
-
-	await ready;
-	const { records } = await db.run(
-		`
-		MATCH (user:User { username: $username })
-		OPTIONAL MATCH (user)-[:MEMBER_OF]->(school:Provider)
-		RETURN user, collect(school.name) AS schools`,
-		{ username: locals.crystal.username },
-	);
-
-	const user = convert.js(records[0].get("user").properties);
-	const roles = records[0].get("user").labels;
-	const schools = records[0].get("schools");
-
-	return json({
-		data: {
-			username: user.username,
-			roles,
-			email: user.email,
-			avatar: user.avatar,
-			intro: user.intro || "",
-			schools,
-			contacts: user.contacts || [],
-		},
-	});
+	const profile = await get_profile(locals.crystal.username);
+	return json({ data: profile });
 };
 
 export const PUT: RequestHandler = async ({ request, locals }) => {
@@ -123,7 +99,6 @@ async function upload_avatar(username: string, body: ArrayBuffer) {
 	const key = avatar_key(username);
 	const param = {
 		Key: key,
-		// Body: Duplex.from(body),
 		Body: new Uint8Array(body),
 		Bucket: CLOUDFLARE_R2_BUCKET,
 	};
