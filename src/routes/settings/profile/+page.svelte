@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { avatar_url, type_to_icon } from "$lib/profile.js";
+	import { avatar_url, type_to_icon } from "$lib/profile";
 	import Icon from "@iconify/svelte";
 
 	export let data;
@@ -137,17 +137,6 @@
 					<div class="flex-1" />
 					<button on:click={update_profile} class="btn-primary btn">Submit</button>
 				</div>
-			</div>
-
-			<div>
-				<!--
-				TODO: follow user
-				<button
-					class="bg-primary hover:bg-primary-focus text-white font-bold py-2 px-4 rounded-full mr-4"
-				>
-					Follow
-				</button>
-				-->
 			</div>
 		</div>
 	</div>
