@@ -21,6 +21,7 @@ export const en = {
 	},
 	profile: {
 		invalid_data: "Invalid data",
+		upload_avatar_failed: "failed to upload avatar",
 	},
 	unimplemented: "Unimplemented",
 } as const;

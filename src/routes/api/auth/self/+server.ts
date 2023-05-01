@@ -65,11 +65,16 @@ export const PUT: RequestHandler = async ({ request, locals }) => {
 	}
 
 	// upload avatar (get storage URL)
-	// TODO: error handling
-	const avatar_id = await upload_avatar(
-		locals.crystal.username,
-		Buffer.from(payload.avatar, "base64"),
-	);
+	let avatar_id;
+	try {
+		avatar_id = await upload_avatar(
+			locals.crystal.username,
+			Buffer.from(payload.avatar, "base64"),
+		);
+	} catch (error) {
+		console.error(error);
+		return json({ error: en.profile.upload_avatar_failed }, { status: 500 });
+	}
 
 	db.run(
 		`
