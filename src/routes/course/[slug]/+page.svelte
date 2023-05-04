@@ -10,7 +10,7 @@
 
 	let rating: {
 		count: number;
-		score: { label: string; value: number[]; avg: string }[];
+		score: { label: string; widths: number[]; avg: string }[];
 	} | null = null;
 
 	onMount(async () => {
@@ -21,29 +21,29 @@
 			score: [
 				{
 					label: "實用度",
-					value: getValue(d.usefulness),
-					avg: getAvg(d.usefulness),
+					widths: get_normalized_widths(d.usefulness),
+					avg: get_avg(d.usefulness),
 				},
 				{
 					label: "甜度",
-					value: getValue(d.sweetness),
-					avg: getAvg(d.sweetness),
+					widths: get_normalized_widths(d.sweetness),
+					avg: get_avg(d.sweetness),
 				},
 				{
 					label: "涼度",
-					value: getValue(d.easiness),
-					avg: getAvg(d.easiness),
+					widths: get_normalized_widths(d.easiness),
+					avg: get_avg(d.easiness),
 				},
 			],
 		};
 
-		function getValue(arr: number[]) {
+		function get_normalized_widths(arr: number[]) {
 			if (Math.max(...arr) === 0) return arr;
 			return arr.map((e) => e / Math.max(...arr));
 		}
-		function getAvg(arr: number[]) {
+		function get_avg(arr: number[]) {
 			if (arr.length === 0) return (0).toFixed(1);
-			return (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1);
+			return (arr.reduce((a, b, i) => a + b * (i + 1), 0) / arr.length).toFixed(1);
 		}
 	});
 </script>
@@ -90,26 +90,28 @@
 		<div class="divider" />
 
 		{#if rating != null}
+			<div class="text-primary">
+				<span class="font-bold">{rating.count}</span>{" "}則評論
+			</div>
 			<div class="grid w-full grid-cols-1 gap-8 md:grid-cols-3">
 				{#each rating.score as r}
 					<div class="flex w-full flex-1 gap-6 p-4">
 						<div class="flex flex-1 flex-col gap-0.5">
-							{#each r.value.slice().reverse() as v, i}
+							{#each r.widths.slice().reverse() as w, i}
 								<div class="flex items-center gap-3">
 									<span class="w-4">{5 - i}</span>
 									<div class="h-2 flex-1 rounded-full bg-gray-300">
 										<div
 											class="h-2 rounded-full bg-yellow-400"
-											style="width: {v}%"
+											style="width: {w * 100}%"
 										/>
 									</div>
 								</div>
 							{/each}
 						</div>
 						<div class="flex flex-col items-center justify-center">
-							<div class="text-xl font-bold">{r.label}</div>
 							<div class="text-5xl font-bold">{r.avg}</div>
-							<div class="text-gray-400">{rating.count} 則評論</div>
+							<div class="text-xl font-bold">{r.label}</div>
 						</div>
 					</div>
 				{/each}

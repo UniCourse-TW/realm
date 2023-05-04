@@ -1,4 +1,6 @@
 import { db, ready } from "$lib/server/db";
+import type { Integer } from "neo4j-driver";
+import { convert } from "neo4j-ogm";
 import { z } from "zod";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
@@ -14,12 +16,7 @@ export const GET: RequestHandler = async ({ params }) => {
             [i IN range(1, 5) | COUNT { (r:Rating) WHERE r.usefulness = i }] AS usefulness,
             [i IN range(1, 5) | COUNT { (r:Rating) WHERE r.sweetness = i }] AS sweetness,
             [i IN range(1, 5) | COUNT { (r:Rating) WHERE r.easiness = i }] AS easiness
-        RETURN {
-            count: cnt,
-            usefulness: usefulness,
-            sweetness: sweetness,
-            easiness: easiness
-        }`,
+        RETURN cnt, usefulness, sweetness, easiness`,
 		{ slug },
 	);
 	if (records.length === 0) {
@@ -33,5 +30,23 @@ export const GET: RequestHandler = async ({ params }) => {
 		});
 	}
 
-	return json({ data: records[0] });
+	const count: bigint = convert.js(records[0].get("cnt") || 0n);
+	const usefulness: bigint[] = (records[0].get("usefulness") as Integer[]).map(
+		(e) => convert.js(e) || 0n,
+	);
+	const sweetness: bigint[] = (records[0].get("sweetness") as Integer[]).map(
+		(e) => convert.js(e) || 0n,
+	);
+	const easiness: bigint[] = (records[0].get("easiness") as Integer[]).map(
+		(e) => convert.js(e) || 0n,
+	);
+
+	return json({
+		data: {
+			count: Number(count),
+			usefulness: usefulness.map(Number),
+			sweetness: sweetness.map(Number),
+			easiness: easiness.map(Number),
+		},
+	});
 };
