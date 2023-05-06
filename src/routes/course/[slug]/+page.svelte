@@ -8,15 +8,26 @@
 		from: Record<string, any>;
 	};
 
-	let rating: {
+	let rating_stats: {
 		count: number;
 		score: { label: string; widths: number[]; avg: string }[];
 	} | null = null;
+	let my_rating: {
+		usefulness: number;
+		sweetness: number;
+		easiness: number;
+		comment: string;
+	} | null = null;
 
-	onMount(async () => {
+	onMount(() => {
+		get_rating_stats();
+		get_my_rating();
+	});
+
+	async function get_rating_stats() {
 		const res = await fetch(`/api/course/${data.props.slug}/rating/stats`);
 		const { data: d } = await res.json();
-		rating = {
+		rating_stats = {
 			count: d.count,
 			score: [
 				{
@@ -36,18 +47,22 @@
 				},
 			],
 		};
-
-		function get_normalized_widths(arr: number[]) {
-			if (Math.max(...arr) === 0) return arr;
-			return arr.map((e) => e / Math.max(...arr));
-		}
-		function get_avg(arr: number[]) {
-			const sum = arr.reduce((a, b) => a + b, 0);
-			if (sum === 0) return (0).toFixed(1);
-			const weighted_sum = arr.reduce((a, b, i) => a + b * (i + 1), 0);
-			return (weighted_sum / sum).toFixed(1);
-		}
-	});
+	}
+	async function get_my_rating() {
+		const res = await fetch(`/api/course/${data.props.slug}/rating/me`);
+		const { data: d } = await res.json();
+		my_rating = d;
+	}
+	function get_normalized_widths(arr: number[]) {
+		if (Math.max(...arr) === 0) return arr;
+		return arr.map((e) => e / Math.max(...arr));
+	}
+	function get_avg(arr: number[]) {
+		const sum = arr.reduce((a, b) => a + b, 0);
+		if (sum === 0) return (0).toFixed(1);
+		const weighted_sum = arr.reduce((a, b, i) => a + b * (i + 1), 0);
+		return (weighted_sum / sum).toFixed(1);
+	}
 </script>
 
 <section class="flex h-full w-full items-center justify-center px-1 py-4 sm:p-4 md:p-8">
@@ -91,12 +106,12 @@
 
 		<div class="divider" />
 
-		{#if rating != null}
+		{#if rating_stats != null}
 			<div class="text-primary">
-				<span class="font-bold">{rating.count}</span>{" "}則評論
+				<span class="font-bold">{rating_stats.count}</span>{" "}則評論
 			</div>
 			<div class="grid w-full grid-cols-1 gap-8 md:grid-cols-3">
-				{#each rating.score as r}
+				{#each rating_stats.score as r}
 					<div class="flex w-full flex-1 gap-6 p-4">
 						<div class="flex flex-1 flex-col gap-0.5">
 							{#each r.widths.slice().reverse() as w, i}
