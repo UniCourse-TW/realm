@@ -42,8 +42,10 @@
 			return arr.map((e) => e / Math.max(...arr));
 		}
 		function get_avg(arr: number[]) {
-			if (arr.length === 0) return (0).toFixed(1);
-			return (arr.reduce((a, b, i) => a + b * (i + 1), 0) / arr.length).toFixed(1);
+			const sum = arr.reduce((a, b) => a + b, 0);
+			if (sum === 0) return (0).toFixed(1);
+			const weighted_sum = arr.reduce((a, b, i) => a + b * (i + 1), 0);
+			return (weighted_sum / sum).toFixed(1);
 		}
 	});
 </script>
@@ -117,7 +119,14 @@
 				{/each}
 			</div>
 		{:else}
-			Loading...
+			<div class="flex animate-pulse flex-col gap-4">
+				<div class="text-primary">評論</div>
+				<div class="grid grid-cols-3 gap-2">
+					{#each Array(15) as i}
+						<div class="h-2 w-full rounded bg-violet-300" />
+					{/each}
+				</div>
+			</div>
 		{/if}
 	</div>
 </section>
