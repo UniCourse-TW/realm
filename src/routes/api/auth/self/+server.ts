@@ -1,6 +1,7 @@
+import { CLOUDFLARE_R2_BUCKET } from "$lib/server/config";
 import { db, ready } from "$lib/server/db";
 import { get_profile } from "$lib/server/profile";
-import { CLOUDFLARE_R2_BUCKET, get_client } from "$lib/server/r2";
+import { get_client } from "$lib/server/r2";
 import { ok } from "$lib/server/respond";
 import { en } from "$lib/strings";
 import { z } from "zod";

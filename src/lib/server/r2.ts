@@ -3,9 +3,8 @@ import {
 	CLOUDFLARE_ACCESS_KEY_ID,
 	CLOUDFLARE_R2_ENDPOINT,
 	CLOUDFLARE_SECRET_ACCESS_KEY,
+	CLOUDFLARE_R2_BUCKET,
 } from "./config";
-
-export const CLOUDFLARE_R2_BUCKET = "unicourse";
 
 export const ready = (async () => {
 	const client = get_client();

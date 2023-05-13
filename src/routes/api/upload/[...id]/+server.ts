@@ -1,4 +1,5 @@
-import { CLOUDFLARE_R2_BUCKET, get_client } from "$lib/server/r2";
+import { CLOUDFLARE_R2_BUCKET } from "$lib/server/config";
+import { get_client } from "$lib/server/r2";
 import { z } from "zod";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import type { RequestHandler } from "@sveltejs/kit";
