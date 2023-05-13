@@ -29,3 +29,4 @@ jobs:
                   CLOUDFLARE_R2_ENDPOINT: ${{ secrets.R2_BUCKET_DEV }}
                   CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
                   CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+                  CLOUDFLARE_R2_BUCKET: ${{ secrets.R2_BUCKET_NAME }}
