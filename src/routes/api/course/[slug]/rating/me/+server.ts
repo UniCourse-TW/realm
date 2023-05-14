@@ -24,21 +24,22 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 		);
 		const rating = result.records[0]?.get("rating");
 		if (!rating) {
-			return json({ error: en.data.not_found }, { status: 404 });
+			return json({ message: en.data.not_found }, { status: 200 });
 		}
-
 		const resp = {
-			usefulness: convert.js(rating.properties.usefulness),
-			sweetness: convert.js(rating.properties.sweetness),
-			easiness: convert.js(rating.properties.easiness),
+			usefulness: Number(convert.js(rating.properties.usefulness)),
+			sweetness: Number(convert.js(rating.properties.sweetness)),
+			easiness: Number(convert.js(rating.properties.easiness)),
+			created: Number(convert.js(rating.properties.created)),
 			comment: null,
 		};
 		result = await db.run(
 			`
-			MATCH (u:User {username: $username})
-			MATCH (u)<-[:WRITE_BY]-(post:Post)<-[:LINK]->(r:Rating {id: $r})
+			MATCH (u:User {username: $username}), (r:Rating)
+			WHERE ID(r) = $r_id
+			MATCH (u)<-[:WRITE_BY]-(post:Post)<-[:LINK]->(r)
 			RETURN post`,
-			{ username: locals.crystal.username, r: rating.identity },
+			{ username: locals.crystal.username, r_id: Number(convert.js(rating.identity)) },
 		);
 		const post = result.records[0]?.get("post");
 		if (post) {
@@ -46,6 +47,7 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 		}
 		return ok(resp);
 	} catch (error) {
+		console.log(error);
 		return json({ error: en.exception }, { status: 500 });
 	}
 };
@@ -78,7 +80,7 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 			`
             MATCH (c:Course {slug: $slug}), (u:User {username: $username})
 			MERGE (u)<-[:RATE_BY]-(r:Rating)-[:ABOUT]->(c)
-			SET r.usefulness = $usefulness, r.sweetness = $sweetness, r.easiness = $easiness, r.timestamp = datetime()
+			SET r.usefulness = $usefulness, r.sweetness = $sweetness, r.easiness = $easiness, r.created = datetime()
 			RETURN ID(r) AS r_id
             `,
 			{ slug, ...payload, username: locals.crystal.username },
@@ -87,11 +89,12 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 		if (payload.comment.length > 0) {
 			await db.run(
 				`
-                MATCH (r:Rating {id: $r_id}), (u:User {username: $username})
+                MATCH (r:Rating), (u:User {username: $username})
+				WHERE ID(r) = $r_id
 				MERGE (u)<-[:WRITE_BY]-(p:Post)<-[:LINK]->(r)
 				SET p.content = $comment`,
 				{
-					r_id,
+					r_id: Number(convert.js(r_id)),
 					username: locals.crystal.username,
 					comment: payload.comment,
 				},

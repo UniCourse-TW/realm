@@ -23,15 +23,21 @@
 		"course-type": "Course Type",
 		"courses": "Courses",
 		"ex-computer-programming": "Ex. Computer Programming",
+		"form_error": "Please complete all the ratings.",
 		"instructors": "Instructors",
 		"name": "Name",
+		"num_of_review": "reviews",
 		"programs": "Programs",
 		"providers": "Providers",
 		"relevance": "Relevance",
+		"review": "Review",
+		"review_placeholder": "Say something about this course (optional)",
 		"search-courses": "Search Courses",
 		"search-for": "Search for",
 		"sort-by": "Sort by",
-		"what-are-you-looking-for": "What are you looking for?"
+		"what-are-you-looking-for": "What are you looking for?",
+		"write_review": "Write a review",
+		"your_review": "Your review:"
 	},
 	"home": {
 		"active-users": "Active Users",

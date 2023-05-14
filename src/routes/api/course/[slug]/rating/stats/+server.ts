@@ -13,9 +13,9 @@ export const GET: RequestHandler = async ({ params }) => {
 		`
         MATCH (rt:Rating)-[:ABOUT]->(c:Course {slug: $slug})
         WITH count(rt) AS cnt,
-            [i IN range(1, 5) | COUNT { (r:Rating) WHERE r.usefulness = i }] AS usefulness,
-            [i IN range(1, 5) | COUNT { (r:Rating) WHERE r.sweetness = i }] AS sweetness,
-            [i IN range(1, 5) | COUNT { (r:Rating) WHERE r.easiness = i }] AS easiness
+            [i IN range(1, 5) | COUNT { (rt) WHERE rt.usefulness = i }] AS usefulness,
+            [i IN range(1, 5) | COUNT { (rt) WHERE rt.sweetness = i }] AS sweetness,
+            [i IN range(1, 5) | COUNT { (rt) WHERE rt.easiness = i }] AS easiness
         RETURN cnt, usefulness, sweetness, easiness`,
 		{ slug },
 	);
