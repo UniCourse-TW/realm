@@ -8,6 +8,7 @@
 		props: any;
 		to: Record<string, any>;
 		from: Record<string, any>;
+		user: { username: string };
 	};
 
 	interface Rating {
@@ -23,13 +24,16 @@
 		score: { label: string; widths: number[]; avg: string }[];
 	} | null = null;
 	let my_rating: Rating = { comment: "" };
+	let ratings: Array<Rating & { id: number; user: { username: string; id: number } }> = [];
 	let editing = false;
 	let form_error = "";
 	let submitting = false;
 
 	onMount(() => {
+		console.log(data);
 		get_rating_stats();
 		get_my_rating();
+		get_ratings();
 	});
 
 	async function get_rating_stats() {
@@ -59,6 +63,10 @@
 	async function get_my_rating() {
 		const res = await fetch(`/api/course/${data.props.slug}/rating/me`).then((r) => r.json());
 		if (res.data) my_rating = res.data;
+	}
+	async function get_ratings() {
+		const res = await fetch(`/api/course/${data.props.slug}/rating`).then((r) => r.json());
+		if (res.data) ratings = res.data;
 	}
 	async function submit() {
 		if (!my_rating.usefulness || !my_rating.sweetness || !my_rating.easiness) {
@@ -276,5 +284,35 @@
 				</div>
 			</div>
 		{/if}
+
+		{#each ratings.filter((e) => e.user.username !== data.user.username) as r, i}
+			<hr class="my-8" />
+
+			<div class="flex gap-x-6">
+				<div class="mr-3 whitespace-nowrap font-semibold">{r.user.username}</div>
+				<div class="flex flex-col gap-y-2 whitespace-nowrap">
+					<div class="flex items-center justify-end gap-x-2">
+						<span class="font-semibold">實用度</span>
+						<Rating value={r.usefulness} />
+					</div>
+					<div class="flex items-center justify-end gap-x-2">
+						<span class="font-semibold">甜度</span>
+						<Rating value={r.sweetness} />
+					</div>
+					<div class="flex items-center justify-end gap-x-2">
+						<span class="font-semibold">涼度</span>
+						<Rating value={r.easiness} />
+					</div>
+				</div>
+				{#if r.comment}
+					<textarea
+						bind:value={r.comment}
+						readonly
+						class="textarea-bordered textarea textarea-disabled w-full"
+						tabindex="0"
+					/>
+				{/if}
+			</div>
+		{/each}
 	</div>
 </section>

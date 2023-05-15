@@ -37,7 +37,7 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 			`
 			MATCH (u:User {username: $username}), (r:Rating)
 			WHERE ID(r) = $r_id
-			MATCH (u)<-[:WRITE_BY]-(post:Post)<-[:LINK]->(r)
+			MATCH (u)<-[:WRITE_BY]-(post:Post)-[:LINK]->(r)
 			RETURN post`,
 			{ username: locals.crystal.username, r_id: Number(convert.js(rating.identity)) },
 		);
@@ -91,7 +91,7 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 				`
                 MATCH (r:Rating), (u:User {username: $username})
 				WHERE ID(r) = $r_id
-				MERGE (u)<-[:WRITE_BY]-(p:Post)<-[:LINK]->(r)
+				MERGE (u)<-[:WRITE_BY]-(p:Post)-[:LINK]->(r)
 				SET p.content = $comment`,
 				{
 					r_id: Number(convert.js(r_id)),
