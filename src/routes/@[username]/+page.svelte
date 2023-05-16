@@ -4,6 +4,16 @@
 	import Icon from "@iconify/svelte";
 
 	export let data;
+
+	async function get_course_name(slug: string): Promise<string> {
+		const resp = await fetch(`/api/course/${slug}`).then((r) => r.json());
+		return resp.data.props.name;
+	}
+
+	function strip(s: string): string {
+		const SUMMARY_LENGTH = 72;
+		return s.length > SUMMARY_LENGTH ? s.substring(0, SUMMARY_LENGTH) + " ..." : s;
+	}
 </script>
 
 <section class="py-12">
@@ -78,13 +88,24 @@
 				{/if}
 			</div>
 
-			<div class="flex-2 grow">
+			<div class="flex-2">
 				<div class="mb-3">
 					<h3 class="text-md font-bold">Recently Comments</h3>
 				</div>
 				{#if data.comments.length > 0}
 					{#each data.comments as comment}
-						<!-- TODO: render comment -->
+						<div class="card py-2">
+							<a class="card-title" href="/course/{comment.slug}">
+								{#await get_course_name(comment.slug) then name}
+									{name}
+								{/await}
+							</a>
+							{#if comment.comment}
+								{strip(comment.comment)}
+							{:else}
+								<i class="text-gray-400">no content.</i>
+							{/if}
+						</div>
 					{/each}
 				{:else}
 					<i class="text-gray-400">no content.</i>
