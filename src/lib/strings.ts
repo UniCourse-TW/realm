@@ -18,6 +18,9 @@ export const en = {
 	},
 	data: {
 		invalid: "Invalid data",
+		duplicate: "The data own by the user already exists",
+		not_found: "Data not found",
 	},
 	unimplemented: "Unimplemented",
+	exception: "Unknown error occurred",
 } as const;
