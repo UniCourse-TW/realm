@@ -35,22 +35,14 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 	}
 
 	try {
-		invitation = z.string().parse(invitation);
+		invitation = z.string().optional().parse(invitation);
 	} catch {
 		return json({ error: en.auth.invitation_invalid }, { status: 400 });
 	}
 
 	if (roles) {
 		try {
-			roles = z
-				.array(
-					z.union([
-						z.literal("Verified"),
-						z.literal("CoursePacker"),
-						z.literal("Moderator"),
-					]),
-				)
-				.parse(roles);
+			roles = z.array(z.enum(["Verified", "CoursePacker", "Moderator"])).parse(roles);
 			roles.unshift("User");
 		} catch {
 			return json({ error: en.auth.wrong_roles }, { status: 400 });
@@ -79,9 +71,10 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		expiresIn: "1h",
 	});
 
-	try {
-		const { records } = await db.run(
-			`
+	if (invitation) {
+		try {
+			const { records } = await db.run(
+				`
         MATCH (invitation:Invitation { code: $invitation })-[:OWNED_BY]->(owner:User)
         WHERE NOT (invitation)-[:USED_BY]->(:User) AND NOT invitation.revoked
         WITH invitation, owner
@@ -93,35 +86,74 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		SET ${roles.map((x: string) => `user:${x}`).join(", ")}
         RETURN user, owner.username as referrer
         `,
-			{
-				user: {
-					username,
-					password: await hash(password),
-					email,
+				{
+					user: {
+						username,
+						password: await hash(password),
+						email,
+					},
+					invitation,
+					token: payload,
 				},
-				invitation,
-				token: payload,
-			},
-		);
+			);
 
-		const user = convert.js(records[0].get("user"));
-		const referrer = records[0].get("referrer") as string;
+			const user = convert.js(records[0].get("user"));
+			const referrer = records[0].get("referrer") as string;
 
-		cookies.set("crystal", jwt, {
-			path: "/",
-			maxAge: 60 * 60,
-			httpOnly: true,
-			sameSite: "lax",
-			secure: !dev,
-		});
+			cookies.set("crystal", jwt, {
+				path: "/",
+				maxAge: 60 * 60,
+				httpOnly: true,
+				sameSite: "lax",
+				secure: !dev,
+			});
 
-		return json({
-			data: {
-				username: user.username,
-				referrer,
-			},
-		});
-	} catch (err) {
-		return json({ error: en.auth.wrong_invitation }, { status: 400 });
+			return json({
+				data: {
+					username: user.username,
+					referrer,
+				},
+			});
+		} catch (err) {
+			return json({ error: en.auth.wrong_invitation }, { status: 400 });
+		}
+	} else {
+		try {
+			const { records } = await db.run(
+				`
+			  CREATE (user:User $user)
+			  CREATE (token:Token $token)-[:OWNED_BY]->(user)
+			  SET ${roles.map((x: string) => `user:${x}`).join(", ")}
+			  RETURN user
+			  `,
+				{
+					user: {
+						username,
+						password: await hash(password),
+						email,
+					},
+					token: payload,
+				},
+			);
+
+			const user = convert.js(records[0].get("user"));
+
+			cookies.set("crystal", jwt, {
+				path: "/",
+				maxAge: 60 * 60,
+				httpOnly: true,
+				sameSite: "lax",
+				secure: !dev,
+			});
+
+			return json({
+				data: {
+					username: user.username,
+					referrer: null,
+				},
+			});
+		} catch (err) {
+			return json({ error: "Failed to create user." }, { status: 500 });
+		}
 	}
 };
