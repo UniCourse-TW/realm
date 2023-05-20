@@ -67,7 +67,7 @@
 	}
 
 	async function register() {
-		if (username === "" || password === "" || email === "" || invitation === "") {
+		if (username === "" || password === "" || email === "") {
 			err = $t("please-fill-in-all-fields");
 			return;
 		}
