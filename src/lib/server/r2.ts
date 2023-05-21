@@ -1,3 +1,4 @@
+import { building } from "$app/environment";
 import { CreateBucketCommand, ListBucketsCommand, S3Client } from "@aws-sdk/client-s3";
 import {
 	CLOUDFLARE_ACCESS_KEY_ID,
@@ -7,6 +8,10 @@ import {
 } from "./config";
 
 export const ready = (async () => {
+	if (building) {
+		return;
+	}
+
 	const client = get_client();
 	const buckets = (await client.send(new ListBucketsCommand({}))).Buckets;
 	if (buckets === undefined) {
