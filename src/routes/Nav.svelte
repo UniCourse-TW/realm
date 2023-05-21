@@ -37,7 +37,7 @@
 				{$t("nav.login")}
 			</a>
 		{:else}
-			<div class="dropdown-end dropdown">
+			<div class="dropdown dropdown-end">
 				<div tabindex="0" class="btn-ghost btn-sm btn normal-case group-hover:h-12">
 					{$t("nav.me")}
 				</div>

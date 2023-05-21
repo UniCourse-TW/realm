@@ -62,6 +62,7 @@
 		"mint-invitation": "Mint Invitation",
 		"nice-to-see-you": "Nice to see you, {user}!",
 		"pick-a-course-pack": "Pick a Course Pack",
+		"resend": "Resend Email",
 		"roles": "Roles: ",
 		"upload-a-course-pack-to-import-it-into-the-system": "Upload a course pack to import it into the system."
 	},
@@ -70,9 +71,9 @@
 		"forum": "Forum",
 		"login": "Login",
 		"me": "Me",
-		"settings": "Settings",
 		"profile": "Profile",
-		"profile-settings": "Profile Settings"
+		"profile-settings": "Profile Settings",
+		"settings": "Settings"
 	},
 	"please-fill-in-all-fields": "Please fill in all fields",
 	"privacy-policy": "Privacy Policy",
