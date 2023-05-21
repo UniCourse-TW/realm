@@ -13,7 +13,7 @@
 		"register": "註冊",
 		"username": "使用者名稱",
 		"your-email": "輸入電子郵件地址",
-		"your-invitation-code": "輸入邀請碼",
+		"your-invitation-code": "輸入邀請碼（選填）",
 		"your-password": "輸入密碼",
 		"your-username": "輸入使用者名稱"
 	},
@@ -23,15 +23,21 @@
 		"course-type": "課程類別",
 		"courses": "課程",
 		"ex-computer-programming": "例如：程式設計",
+		"form_error": "請完成所有評分",
 		"instructors": "授課講師",
 		"name": "課程名稱",
+		"num_of_review": "則評論",
 		"programs": "課程計畫",
 		"providers": "授課機構",
 		"relevance": "相關性",
+		"review": "評論",
+		"review_placeholder": "留下你對這堂課的想法（選填）",
 		"search-courses": "課程搜尋",
 		"search-for": "包含",
 		"sort-by": "排序方式",
-		"what-are-you-looking-for": "你想找什麼呢？"
+		"what-are-you-looking-for": "你想找什麼呢？",
+		"write_review": "撰寫評論",
+		"your_review": "你的評論："
 	},
 	"home": {
 		"active-users": "活躍使用者",
