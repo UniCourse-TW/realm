@@ -69,7 +69,10 @@
 		"course": "Course",
 		"forum": "Forum",
 		"login": "Login",
-		"me": "Me"
+		"me": "Me",
+		"settings": "Settings",
+		"profile": "Profile",
+		"profile-settings": "Profile Settings"
 	},
 	"please-fill-in-all-fields": "Please fill in all fields",
 	"privacy-policy": "Privacy Policy",
