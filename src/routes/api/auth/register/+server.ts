@@ -11,7 +11,7 @@ import type { RequestHandler } from "@sveltejs/kit";
 import { json } from "@sveltejs/kit";
 import { v } from "@unicourse-tw/validation";
 
-export const POST: RequestHandler = async ({ request, cookies }) => {
+export const POST: RequestHandler = async ({ request, cookies, fetch }) => {
 	await ready;
 
 	let { username, password, email, invitation, roles } = await request.json();
@@ -108,6 +108,8 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 				secure: !dev,
 			});
 
+			fetch("/api/auth/verify", { method: "POST" });
+
 			return json({
 				data: {
 					username: user.username,
@@ -145,6 +147,8 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 				sameSite: "lax",
 				secure: !dev,
 			});
+
+			fetch("/api/auth/verify", { method: "POST" });
 
 			return json({
 				data: {

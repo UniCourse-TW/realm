@@ -62,6 +62,7 @@
 		"mint-invitation": "建立邀請碼",
 		"nice-to-see-you": "很高興見到你，{user}！",
 		"pick-a-course-pack": "選擇一個 Course Pack 檔案來上傳",
+		"resend": "重新寄送",
 		"roles": "角色：",
 		"upload-a-course-pack-to-import-it-into-the-system": "上傳 Course Pack 並匯入至 UniCourse 系統。"
 	},
