@@ -37,7 +37,8 @@
 			</a>
 		{:else}
 			<div class="dropdown-end dropdown">
-				<div class="btn-ghost btn-sm btn normal-case group-hover:h-12">
+				<!-- svelte-ignore a11y-no-noninteractive-tabindex dropdown needs tabindex="0" -->
+				<div tabindex="0" class="btn-ghost btn-sm btn normal-case group-hover:h-12">
 					{$t("nav.me")}
 				</div>
 				<ul class="dropdown-content menu rounded-box mt-4 w-52 bg-base-100 p-2 shadow">
