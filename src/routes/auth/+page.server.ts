@@ -3,6 +3,6 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.crystal) {
-		throw redirect(307, `/@${locals.crystal.username}`);
+		throw redirect(307, "/settings");
 	}
 };

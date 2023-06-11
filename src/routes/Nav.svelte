@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { avatar_url } from "$lib/profile";
 	import type { Profile } from "$lib/server/profile";
 	import { onMount } from "svelte";
 	import { t } from "svelte-i18n";
@@ -37,16 +36,11 @@
 				{$t("nav.login")}
 			</a>
 		{:else}
-			<div class="dropdown dropdown-end">
-				<div tabindex="0" class="btn-ghost btn-sm btn normal-case group-hover:h-12">
+			<div class="dropdown-end dropdown">
+				<div class="btn-ghost btn-sm btn normal-case group-hover:h-12">
 					{$t("nav.me")}
 				</div>
 				<ul class="dropdown-content menu rounded-box mt-4 w-52 bg-base-100 p-2 shadow">
-					<li>
-						<a href="/@{user.username}">
-							{$t("nav.profile")}
-						</a>
-					</li>
 					<li>
 						<a href="/settings">
 							{$t("nav.settings")}
@@ -55,6 +49,11 @@
 					<li>
 						<a href="/settings/profile">
 							{$t("nav.profile-settings")}
+						</a>
+					</li>
+					<li>
+						<a href="/@{user.username}">
+							{$t("nav.profile")}
 						</a>
 					</li>
 				</ul>

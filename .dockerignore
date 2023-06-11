@@ -1,0 +1,7 @@
+.changeset
+.devcontainer
+.github
+.svelte-kit
+node_modules
+build
+dist
