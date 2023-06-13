@@ -11,7 +11,7 @@ export function type_to_icon(ty: string) {
 }
 
 export function avatar_url(id: string | undefined) {
-	if (id === undefined || id === "") {
+	if (!id) {
 		return "https://unicornify.pictures/avatar/1627a2191cc8dcaf33ab1463e6dee360?s=128";
 	}
 	return `${base}/api/upload/${id}`;

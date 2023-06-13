@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
 	import { avatar_url, type_to_icon } from "$lib/profile";
 	import Icon from "@iconify/svelte";
 
@@ -15,31 +16,45 @@
 	};
 	let last_contact = default_contact;
 
+	let updating = false;
 	async function update_profile() {
-		let encodedAvatar = "";
-		if (avatar_files !== null && avatar_files.length > 0) {
-			console.log("base64 encode avatar file");
-			const bytes = new Uint8Array(await avatar_files[0].arrayBuffer());
-			let byteString = "";
-			for (const b of bytes) {
-				byteString += String.fromCharCode(b);
-			}
-			encodedAvatar = window.btoa(byteString);
+		if (updating) {
+			return;
 		}
+		updating = true;
 
-		const payload = {
-			avatar: encodedAvatar,
-			contacts: data.self.contacts,
-			intro: data.self.intro,
-		};
-		const res = await fetch("/api/auth/self", {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(payload),
-		});
+		try {
+			let encodedAvatar = "";
+			if (avatar_files !== null && avatar_files.length > 0) {
+				console.log("base64 encode avatar file");
+				const bytes = new Uint8Array(await avatar_files[0].arrayBuffer());
+				let byteString = "";
+				for (const b of bytes) {
+					byteString += String.fromCharCode(b);
+				}
+				encodedAvatar = window.btoa(byteString);
+			}
 
-		if (res.status !== 200) {
-			console.error(res);
+			const payload = {
+				avatar: encodedAvatar,
+				contacts: data.self.contacts,
+				intro: data.self.intro,
+			};
+			const res = await fetch("/api/auth/self", {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(payload),
+			});
+
+			if (res.status !== 200) {
+				console.error(res);
+			}
+
+			await goto(`/@${data.user?.username}`, { invalidateAll: true });
+		} catch (error) {
+			console.error(error);
+		} finally {
+			updating = false;
 		}
 	}
 
@@ -135,7 +150,9 @@
 				</div>
 				<div class="flex py-2">
 					<div class="flex-1" />
-					<button on:click={update_profile} class="btn-primary btn">Submit</button>
+					<button on:click={update_profile} disabled={updating} class="btn-primary btn"
+						>Submit</button
+					>
 				</div>
 			</div>
 		</div>

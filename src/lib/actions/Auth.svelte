@@ -135,6 +135,9 @@
 		class="input-bordered input w-full"
 		disabled={running}
 		tabindex="0"
+		on:keyup={(e) => {
+			if (e.key === "Enter" && mode === "login") login();
+		}}
 	/>
 
 	{#if mode === "register"}
@@ -149,6 +152,9 @@
 			class="input-bordered input w-full"
 			disabled={running}
 			tabindex="0"
+			on:keyup={(e) => {
+				if (e.key === "Enter") register();
+			}}
 		/>
 
 		<span class="label">

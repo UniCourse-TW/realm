@@ -68,29 +68,30 @@ export const PUT: RequestHandler = async ({ request, locals }) => {
 	// upload avatar (get storage URL)
 	let avatar_id;
 	try {
-		avatar_id = await upload_avatar(
-			locals.crystal.username,
-			Buffer.from(payload.avatar, "base64"),
-		);
+		if (payload.avatar.length > 8 * 1024 * 1024) {
+			throw new Error();
+		}
+		if (payload.avatar.length > 64) {
+			avatar_id = await upload_avatar(
+				locals.crystal.username,
+				Buffer.from(payload.avatar, "base64"),
+			);
+		}
 	} catch (error) {
 		console.error(error);
 		return json({ error: en.profile.upload_avatar_failed }, { status: 500 });
 	}
 
-	db.run(
-		`
-	MATCH (u:User {username: $username})
-	SET u.intro = $intro,
-		u.avatar = $avatar,
-		u.contacts = $contacts
-	`,
-		{
-			username: locals.crystal.username,
-			intro: payload.intro,
-			avatar: avatar_id,
-			contacts,
-		},
-	);
+	const command =
+		`MATCH (u:User {username: $username})
+	SET u.intro = $intro, u.contacts = $contacts` + (avatar_id ? ", u.avatar = $avatar" : "");
+
+	db.run(command, {
+		username: locals.crystal.username,
+		intro: payload.intro,
+		avatar: avatar_id,
+		contacts,
+	});
 
 	return ok("ok");
 };

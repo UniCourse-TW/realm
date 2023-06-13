@@ -52,7 +52,7 @@
 
 		<div class="mb-6">
 			<p class="text-lg font-bold">Bio</p>
-			{#if data.profile.intro !== undefined}
+			{#if data.profile.intro}
 				<p class="text-gray-600">{data.profile.intro}</p>
 			{:else}
 				<i class="text-gray-400">no content.</i>
