@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Course from "$lib/components/Course.svelte";
-	import { avatar_url, type_to_icon } from "$lib/profile.js";
+	import { avatar_url, type_to_icon } from "$lib/profile";
+	import { strip as _strip } from "$lib/utils";
 	import Icon from "@iconify/svelte";
 
 	export let data;
@@ -12,7 +13,7 @@
 
 	function strip(s: string): string {
 		const SUMMARY_LENGTH = 72;
-		return s.length > SUMMARY_LENGTH ? s.substring(0, SUMMARY_LENGTH) + " ..." : s;
+		return _strip(s, SUMMARY_LENGTH);
 	}
 </script>
 
