@@ -1,5 +1,5 @@
-<!--  -->
 <script lang="ts">
+	import { strip } from "$lib/utils";
 	import pangu from "pangu";
 
 	const type = "Course";
@@ -17,10 +17,7 @@
 	}
 
 	const SUMMARY_LENGTH = 50;
-	$: brief_description =
-		props.description?.length > SUMMARY_LENGTH
-			? props.description.substring(0, SUMMARY_LENGTH) + " ..."
-			: props.description;
+	$: brief_description = strip(props.description, SUMMARY_LENGTH);
 </script>
 
 <a
